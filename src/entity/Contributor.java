@@ -1,9 +1,21 @@
-package data;
+package entity;
 
 public class Contributor {
 	private String accountID;
 	private String documentID;
 	private String authority;
+	/**
+	 * 编辑权限:拥有
+	 */
+	public static final String AUTHORITY_DEGREE_POSSESSED = "P";
+	/**
+	 * 编辑权限:可编辑
+	 */
+	public static final String AUTHORITY_DEGREE_EDITABLE = "E";
+	/**
+	 * 编辑权限:只读
+	 */
+	public static final String AUTHORITY_DEGREE_READ_ONLY = "R";
 	
 	public Contributor() {
 		

@@ -1,4 +1,4 @@
-package data;
+package entity;
 
 import java.util.Date;
 
@@ -10,10 +10,13 @@ public class Document {
 	private Date lastModifyDate;
 	private int version;
 	
+	
 	public Document() {
 		
 	}
+	
 	public Document(String documentID, String title, String path, Date createDate, Date lastModifyDate, int version) {
+		super();
 		this.documentID = documentID;
 		this.title = title;
 		this.path = path;
@@ -21,6 +24,7 @@ public class Document {
 		this.lastModifyDate = lastModifyDate;
 		this.version = version;
 	}
+
 	public Document(String id, String title, String path, Date createDate) {
 		super();
 		this.documentID = id;

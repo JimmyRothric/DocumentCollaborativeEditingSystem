@@ -8,9 +8,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.print.Doc;
-
-import data.Document;
+import entity.Contributor;
+import entity.Document;
 
 public class DocumentDao extends BaseDao {
 	public DocumentDao() {
@@ -172,11 +171,15 @@ public class DocumentDao extends BaseDao {
 	 */
 	public ArrayList<Document> getPossessedDocumentByAID(String accid) {
 		ArrayList<Document> docList = new ArrayList<Document>();
-		String sql = "select * from Document where Uid = ?";
+		String authority = Contributor.AUTHORITY_DEGREE_POSSESSED;
+		String sql = "select Document.Did, title, path, create_date, last_modify_date, version "
+				+ "from Document, Contributor "
+				+ "where Document.Did = Contributor.Did and Uid = ? and authority = ?";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, accid);
+			stmt.setString(2, authority);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String id = rs.getString(1);
@@ -197,19 +200,21 @@ public class DocumentDao extends BaseDao {
 	}
 	
 	/**
-	 * 按用户账号ID获取用户所有有编辑权限的文档(包含用户创建的文档，也包含被邀请编辑的文档)
+	 * 按用户账号ID获取用户所有有编辑权限的文档(仅包含被邀请编辑的文档，不包含用户创建的文档)
 	 * @param accid 用户账号ID
 	 * @return 文档列表
 	 */
 	public ArrayList<Document> getEditableDocumentByAID(String accid) {
 		ArrayList<Document> docList = new ArrayList<Document>();
-		String sql = "select Document.Did, title, location, createdate, lastmodifydate, version "
+		String authority = Contributor.AUTHORITY_DEGREE_EDITABLE;
+		String sql = "select Document.Did, title, path, create_date, last_modify_date, version "
 				+ "from Document, Contributor "
-				+ "where Document.Did = Contributor.Did and Contributor.Uid = ?";
+				+ "where Uid = ? and authority = ?";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, accid);
+			stmt.setString(2, authority);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String id = rs.getString(1);
@@ -230,12 +235,47 @@ public class DocumentDao extends BaseDao {
 	}
 	
 	/**
-	 * 获取历史版本文档实例
+	 * 按用户账号ID获取用户所有只读的文档
+	 * @param accid 用户账号ID
+	 * @return 文档列表
+	 */
+	public ArrayList<Document> getReadOnlyDocumentByAID(String accid) {
+		ArrayList<Document> docList = new ArrayList<Document>();
+		String authority = Contributor.AUTHORITY_DEGREE_READ_ONLY;
+		String sql = "select Document.Did, title, path, create_date, last_modify_date, version "
+				+ "from Document, Contributor "
+				+ "where Document.Did = Contributor.Did and Uid = ? and authority = ?";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, accid);
+			stmt.setString(2, authority);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString(1);
+				String title = rs.getString(2);
+				String path = rs.getString(3);
+				Date create_date = rs.getDate(4);
+				Date last_modify_date = rs.getDate(5);
+				int version  = rs.getInt(6);
+				docList.add(new Document(id, title, path, create_date, last_modify_date, version));
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return docList;
+	}
+	
+	/**
+	 * 获取某个历史版本文档实例
 	 * @param docid 文档ID
 	 * @param v 版本号
 	 * @return 文档实例
 	 */
-	public Document getDocumentHistory(String docid, int v) {
+	public Document getCertainDocumentHistory(String docid, int v) {
 		Document doc = null;
 		String sql = "select * from Document_History where Did = ? and version = ?";
 		try {
@@ -260,5 +300,36 @@ public class DocumentDao extends BaseDao {
 			e.printStackTrace();
 		}
 		return doc;
+	}
+	
+	/**
+	 * 获取全部历史版本文档
+	 * @param docid 文档ID
+	 * @return 文档实例列表
+	 */
+	public ArrayList<Document> getALLDocumentHistory(String docid) {
+		ArrayList<Document> docList = new ArrayList<Document>();
+		String sql = "select * from Document_History where Did = ?";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, docid);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString(1);
+				String title = rs.getString(2);
+				String path = rs.getString(3);
+				Date create_date = rs.getDate(4);
+				Date last_modify_date = rs.getDate(5);
+				int version  = rs.getInt(6);
+				docList.add(new Document(id, title, path, create_date, last_modify_date, version));
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return docList;
 	}
 }
