@@ -1,5 +1,5 @@
 package dao;
 
-public class ContributionDao {
+public class ContributionDao extends BaseDao {
 
 }

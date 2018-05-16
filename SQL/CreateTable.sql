@@ -22,7 +22,9 @@ create table Document
 create table Document_History
 (
 	Did char(20),
+	title nvarchar(20) not null,
 	path nvarchar(50) not null,
+	create_date datetime not null,
 	modify_date datetime not null,
 	version int,
 	primary key (Did, version)

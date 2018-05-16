@@ -10,9 +10,16 @@ public class Document {
 	private Date lastModifyDate;
 	private int version;
 	
-	
 	public Document() {
 		
+	}
+	public Document(String documentID, String title, String path, Date createDate, Date lastModifyDate, int version) {
+		this.documentID = documentID;
+		this.title = title;
+		this.path = path;
+		this.createDate = createDate;
+		this.lastModifyDate = lastModifyDate;
+		this.version = version;
 	}
 	public Document(String id, String title, String path, Date createDate) {
 		super();
