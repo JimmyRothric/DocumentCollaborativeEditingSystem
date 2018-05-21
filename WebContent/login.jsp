@@ -36,7 +36,7 @@
 </div>
 </nav>
 
-<form action="../LoginServlet" method="post">
+<form action="LoginServlet" method="post">
 <div style="position: relative; top: 50px">
 <div class="container">
 	<div class="row" style="padding-left: 6%">

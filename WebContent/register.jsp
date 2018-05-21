@@ -28,7 +28,7 @@
 	</div>
 </div>
 </nav>
-<form action="../RegisterServlet" method="post">
+<form action="RegisterServlet" method="post">
 
 <div style="position: relative; top: 50px">
 <div class="container">
