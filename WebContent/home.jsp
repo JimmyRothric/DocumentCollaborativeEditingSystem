@@ -7,6 +7,10 @@
 <title>在此处插入标题</title>
 </head>
 <body>
+ 
+<!-- <%@ include file="head.jsp" %>-->
+
+
 <a href = "myfile.jsp">我的文件</a>
 <a href = "teamfile.jsp">协同编辑文件</a>
 </body>
