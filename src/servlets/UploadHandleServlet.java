@@ -19,6 +19,8 @@ import org.apache.commons.fileupload.ProgressListener;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import handler.FileHandle;
+
 /**
  * Servlet implementation class UploadHandleServlet
  */
@@ -115,9 +117,9 @@ public class UploadHandleServlet extends HttpServlet {
                     //获取item中的上传文件的输入流
                     InputStream in = item.getInputStream();
                     //得到文件保存的名称
-                    String saveFilename = makeFileName(filename);
+                    String saveFilename = filename;
                     //得到文件的保存目录
-                    String realSavePath = makePath(saveFilename, savePath);
+                    String realSavePath = FileHandle.makePath(saveFilename, savePath);
                     //创建一个文件输出流
                     FileOutputStream out = new FileOutputStream(realSavePath + "\\" + saveFilename);
                     //创建一个缓冲区
@@ -157,27 +159,8 @@ public class UploadHandleServlet extends HttpServlet {
 	    
 	}
 	
-	private String makeFileName(String filename){  //2.jpg
-        //为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名
-        //return UUID.randomUUID().toString() + "_" + filename;
-        return filename;
-    }
+
 	
-	 private String makePath(String filename,String savePath){
-	        //得到文件名的hashCode的值，得到的就是filename这个字符串对象在内存中的地址
-	        int hashcode = filename.hashCode();
-	        int dir1 = hashcode&0xf;  //0--15
-	        int dir2 = (hashcode&0xf0)>>4;  //0-15
-	        //构造新的保存目录
-	        String dir = savePath + "\\" + dir1 + "\\" + dir2;  //upload\2\3  upload\3\5
-	        //File既可以代表文件也可以代表目录
-	        File file = new File(dir);
-	        //如果目录不存在
-	        if(!file.exists()){
-	            //创建目录
-	            file.mkdirs();
-	        }
-	        return dir;
-	 }
+
 
 }
