@@ -12,7 +12,7 @@ create table Document
 (
 	Did char(20),
 	title nvarchar(20) not null,
-	path nvarchar(50) not null,
+	path nvarchar(200) not null,
 	create_date datetime not null,
 	last_modify_date datetime,
 	version int default(1) not null,
@@ -23,7 +23,7 @@ create table Document_History
 (
 	Did char(20),
 	title nvarchar(20) not null,
-	path nvarchar(50) not null,
+	path nvarchar(200) not null,
 	create_date datetime not null,
 	modify_date datetime not null,
 	version int,
@@ -45,7 +45,7 @@ create table Contribution
 	Did char(20),
 	Cid char(20),
 	Uid char(20),
-	path nvarchar(50) not null,
+	path nvarchar(200) not null,
 	date datetime not null,
 	state char(1) not null,
 	primary key(Did,Cid,Uid),

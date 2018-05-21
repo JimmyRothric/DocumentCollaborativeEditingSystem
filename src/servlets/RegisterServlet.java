@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AccountDao;
-import data.Account;
+import entity.Account;
 
 /**
  * Servlet implementation class RegisterServlet
