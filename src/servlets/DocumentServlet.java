@@ -1,11 +1,18 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dao.DocumentDao;
+import entity.Account;
+import entity.Document;
 
 /**
  * Servlet implementation class DocumentServlet
@@ -27,7 +34,26 @@ public class DocumentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String function = request.getParameter("function");
+		HttpSession session = request.getSession();
+		Account account = (Account)session.getAttribute("account"); 
+		if (account == null) {
+			 request.setAttribute("message","请先登录");
+		     request.getRequestDispatcher("/message.jsp").forward(request, response);
+		     return;
+		}
+		if (function == null) {
+			return;
+		}
+		if (function.equals("showMyFile")) {
+			DocumentDao ddao = new DocumentDao();
+			ArrayList<Document> docList = ddao.getPossessedDocumentByAID(account.getAccountID());
+			request.setAttribute("docList", docList);
+			request.getRequestDispatcher("/myfile.jsp").forward(request, response);
+			return;
+		}
+		
+		
 	}
 
 	/**

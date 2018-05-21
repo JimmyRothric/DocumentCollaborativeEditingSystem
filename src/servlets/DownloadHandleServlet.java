@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import handler.FileHandle;
+
 /**
  * Servlet implementation class DownLoadHandleServlet
  */
@@ -37,7 +39,7 @@ public class DownloadHandleServlet extends HttpServlet {
         //上传的文件都是保存在/WEB-INF/upload目录下的子目录当中
         String fileSaveRootPath=this.getServletContext().getRealPath("/WEB-INF/upload");
         //通过文件名找出文件的所在目录
-        String path = findFileSavePathByFileName(fileName,fileSaveRootPath);
+        String path = FileHandle.findFileSavePathByFileName(fileName,fileSaveRootPath);
         //得到要下载的文件
         File file = new File(path + "\\" + fileName);
         //如果文件不存在
@@ -76,17 +78,5 @@ public class DownloadHandleServlet extends HttpServlet {
 		doGet(request, response);
 		
 	}
-	 public String findFileSavePathByFileName(String filename,String saveRootPath){
-	        int hashcode = filename.hashCode();
-	        int dir1 = hashcode&0xf;  //0--15
-	        int dir2 = (hashcode&0xf0)>>4;  //0-15
-	        String dir = saveRootPath + "\\" + dir1 + "\\" + dir2;  //upload\2\3  upload\3\5
-	        File file = new File(dir);
-	        if(!file.exists()){
-	            //创建目录
-	            file.mkdirs();
-	        }
-	        return dir;
-	    }
 
 }
