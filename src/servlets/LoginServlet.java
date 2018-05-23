@@ -42,7 +42,6 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
 		if (username != null && password != null) {
-//			if (true) { //修改判断正则
 			AccountDao adao = new AccountDao();
 			Account acc = adao.isValid(username, password);
 			if (acc != null) {
@@ -52,11 +51,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			session.setAttribute("login_error", "账号或密码错误");
 			response.sendRedirect("login.jsp");
-//				return;
-//			}
-//			session.setAttribute("login_error", "账号或密码格式错误");
-//			response.sendRedirect("login.jsp");
-//			return;
+			return;
 		}
 		session.setAttribute("login_error", "登陆失败");
 		response.sendRedirect("login.jsp");

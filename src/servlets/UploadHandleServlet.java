@@ -54,6 +54,7 @@ public class UploadHandleServlet extends HttpServlet {
         String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
         //上传时生成的临时文件保存目录
         String tempPath = this.getServletContext().getRealPath("/WEB-INF/temp");
+        System.out.println(savePath);
         File tmpFile = new File(tempPath);
         if (!tmpFile.exists()) {
             //创建临时目录

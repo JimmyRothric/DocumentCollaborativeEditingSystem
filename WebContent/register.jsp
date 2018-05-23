@@ -28,7 +28,7 @@
 	</div>
 </div>
 </nav>
-<form action="RegisterServlet" method="post">
+<form action="RegisterServlet" method="post"  onsubmit="return isValid();">
 
 <div style="position: relative; top: 50px">
 <div class="container">
@@ -40,11 +40,12 @@
 				<!-- LOGO -->
 				<img src="img/LOGO_M.png" alt="logo" class="img-circle"/>
 			</div>
-			<div style="padding-top: 20%">
-				<input type="text" class="form-control" name="username" placeholder="账号ID" required autofocus/><br/>
-				<input type="text" class="form-control" name="name" placeholder="姓名" required autofocus/><br/>
-				<input type="password" class="form-control" name="password0" placeholder="密码" required autofocus/><br/>
-				<input type="password" class="form-control" name="password1" placeholder="确认密码" required autofocus/><br/>
+			<div style="padding-top: 10%">
+				<input type="text" class="form-control" id="accountid" name="accountid" placeholder="账号ID" required autofocus/><br/>
+				<input type="text" class="form-control" id="email" name="email" placeholder="邮箱" required autofocus/><br/>
+				<input type="text" class="form-control" id="name" name="name" placeholder="姓名" required autofocus/><br/>
+				<input type="password" class="form-control" id="password0" name="password0" placeholder="密码" required autofocus/><br/>
+				<input type="password" class="form-control" id="password1" name="password1" placeholder="确认密码" required autofocus/><br/>
 				<button type="submit" class="btn .btn-default col-md-12" style="height: 40px; width: 270px; font-size: 16px; color: white; background-color: #5aa9e3; margin-left: 0%" >
 		   			注册
 		   		</button>
@@ -55,6 +56,9 @@
 	</div>
 </div>
 </div>
+
+<script src="js/register_isValid.js"></script>
+
 </form>
 </body>
 </html>
