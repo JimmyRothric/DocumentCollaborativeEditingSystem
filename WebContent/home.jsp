@@ -4,22 +4,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>在此处插入标题</title>
+<title>HOME</title>
 </head>
 <body>
-<<<<<<< HEAD
- 
-<!-- <%@ include file="head.jsp" %>-->
+<%@ include file="head.jsp" %>
+<div style="position: relative; top: 50px">
+<div class="container">
+	
+	<a href="home.jsp">主页 </a>
+	<a href="DocumentServlet?function=showMyFile">我的文件</a>
+	<a href="DocumentServlet?function=teamFile">协同编辑文件</a>
+	
+	<p>
+	账号：${account.accountID}<br/>
+	姓名：${account.name}<br/>
+	邮箱：${account.email}<br/>
+	</p>
+	
 
-
-=======
-<p>
-账号：${account.accountID}<br/>
-姓名：${account.name}<br/>
-邮箱：${account.email}<br/>
-</p>
->>>>>>> 088fcd86612bd16dd9b52c14a21e43a24f81460a
-<a href = "myfile.jsp">我的文件</a>
-<a href = "teamfile.jsp">协同编辑文件</a>
+</div>
+</div>
 </body>
 </html>

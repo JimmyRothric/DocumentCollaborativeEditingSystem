@@ -34,6 +34,10 @@ public class DownloadHandleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		// TODO
+		String docid = request.getParameter("docid");
+		
 		String fileName = request.getParameter("filename");  //23239283-92489-阿凡达.avi
         fileName = new String(fileName.getBytes("iso8859-1"),"UTF-8");
         //上传的文件都是保存在/WEB-INF/upload目录下的子目录当中

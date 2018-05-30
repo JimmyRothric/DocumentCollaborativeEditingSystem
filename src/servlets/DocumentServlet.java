@@ -45,13 +45,22 @@ public class DocumentServlet extends HttpServlet {
 		if (function == null) {
 			return;
 		}
+		ArrayList<Document> docList = null;
 		if (function.equals("showMyFile")) {
 			DocumentDao ddao = new DocumentDao();
-			ArrayList<Document> docList = ddao.getPossessedDocumentByAID(account.getAccountID());
+			docList = ddao.getPossessedDocumentByAID(account.getAccountID());
 			request.setAttribute("docList", docList);
 			request.getRequestDispatcher("/myfile.jsp").forward(request, response);
 			return;
 		}
+		if (function.equals("teamFile")) {
+			DocumentDao ddao = new DocumentDao();
+			docList = ddao.getEditableDocumentByAID(account.getAccountID());
+			request.setAttribute("docList", docList);
+			request.getRequestDispatcher("/teamfile.jsp").forward(request, response);
+			return;
+		}
+		
 		
 		
 	}

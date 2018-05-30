@@ -209,7 +209,7 @@ public class DocumentDao extends BaseDao {
 		String authority = Contributor.AUTHORITY_DEGREE_EDITABLE;
 		String sql = "select Document.Did, title, path, create_date, last_modify_date, version "
 				+ "from Document, Contributor "
-				+ "where Uid = ? and authority = ?";
+				+ "where Document.Did = Contributor.Did and Uid = ? and authority = ?";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
