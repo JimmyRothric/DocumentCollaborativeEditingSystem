@@ -55,7 +55,8 @@ public class UploadHandleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String docid = request.getParameter("docid");	
+		String docid = request.getParameter("docid");
+		
 		Account acc = (Account) session.getAttribute("account");
 		//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
         String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
@@ -170,7 +171,7 @@ public class UploadHandleServlet extends HttpServlet {
         }
         request.setAttribute("message",message);
         request.getRequestDispatcher("/message.jsp").forward(request, response);
-	    
+        
 	}
 	
 
