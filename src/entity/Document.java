@@ -1,6 +1,11 @@
 package entity;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import handler.FileHandle;
 
 public class Document {
 	private String documentID;
@@ -25,12 +30,16 @@ public class Document {
 		this.version = version;
 	}
 
-	public Document(String id, String title, String path, Date createDate) {
+	public Document(String title,String path) {
 		super();
-		this.documentID = id;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		DecimalFormat df = new DecimalFormat("000"); 
+		Date tdate = Calendar.getInstance().getTime();
+		this.documentID = sdf.format(tdate) + df.format(this.hashCode() % 100);
 		this.title = title;
 		this.path = path;
-		this.createDate = createDate;
+		this.createDate = tdate;
+		this.lastModifyDate = tdate;
 		this.version = 1;
 	}
 	public String getDocumentID() {

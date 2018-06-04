@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
@@ -19,6 +20,11 @@ import org.apache.commons.fileupload.ProgressListener;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import dao.ContributorDao;
+import dao.DocumentDao;
+import entity.Account;
+import entity.Contributor;
+import entity.Document;
 import handler.FileHandle;
 
 /**
@@ -48,11 +54,9 @@ public class UploadHandleServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		// TODO
-		String docid = request.getParameter("docid");	
-		
+		HttpSession session = request.getSession();
+		//String acco = request.getParameter("docid");	
+		Account acc = (Account) session.getAttribute("account");
 		//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
         String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
         //上传时生成的临时文件保存目录
@@ -124,8 +128,9 @@ public class UploadHandleServlet extends HttpServlet {
                     String saveFilename = filename;
                     //得到文件的保存目录
                     String realSavePath = FileHandle.makePath(saveFilename, savePath);
+                    String storePath = realSavePath + "\\" + saveFilename;
                     //创建一个文件输出流
-                    FileOutputStream out = new FileOutputStream(realSavePath + "\\" + saveFilename);
+                    FileOutputStream out = new FileOutputStream(storePath);
                     //创建一个缓冲区
                     byte buffer[] = new byte[1024];
                     //判断输入流中的数据是否已经读完的标识
@@ -142,6 +147,11 @@ public class UploadHandleServlet extends HttpServlet {
                     //删除处理文件上传时生成的临时文件
                     //item.delete();
                     message = "文件上传成功！";
+                    DocumentDao ddao = new DocumentDao();
+                    Document doc = new Document(filename,storePath);
+                    ddao.addDocument(doc);
+                    ContributorDao cdao = new ContributorDao();
+                    cdao.addContributor(new Contributor(acc.getAccountID(),doc.getDocumentID(),Contributor.AUTHORITY_DEGREE_POSSESSED));
                 }
             }
         }catch (FileUploadBase.FileSizeLimitExceededException e) {
@@ -155,7 +165,7 @@ public class UploadHandleServlet extends HttpServlet {
             request.getRequestDispatcher("/message.jsp").forward(request, response);
             return;
         }catch (Exception e) {
-            message= "文件上传失败！";
+            message= e.getMessage();
             e.printStackTrace();
         }
         request.setAttribute("message",message);

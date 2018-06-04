@@ -10,7 +10,7 @@
 </head>
 <body>
 <form>
-	<input type ="button" value = "创建文件" onclick = "window.location.href='upload.jsp'">
+	<input type ="button" value = "创建文件" onclick = "window.location.href='upload.jsp?method=create'">
 	<!--<input type ="button" value = "下载文件" onclick = "window.location.href='download.jsp'">-->
 	
 	<table class="table table-hover">		

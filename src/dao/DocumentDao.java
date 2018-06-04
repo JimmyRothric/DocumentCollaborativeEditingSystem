@@ -21,7 +21,7 @@ public class DocumentDao extends BaseDao {
 	 * @return 操作结果成功 or 失败
 	 */
 	public boolean addDocument(Document doc) {
-		String sql = "insert into Document values(?, ?, ?, ?)";
+		String sql = "insert into Document values(?, ?, ?, ?, ?, ?)";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);

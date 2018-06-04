@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.DocumentDao;
+import entity.Document;
 import handler.FileHandle;
 
 /**
@@ -37,7 +39,17 @@ public class DownloadHandleServlet extends HttpServlet {
 		
 		// TODO
 		String docid = request.getParameter("docid");
-		
+		String path = null;
+		String filename = null;
+		File file = null;
+		if (docid != null) {
+			DocumentDao ddao = new DocumentDao(); 
+			Document d = ddao.getDocumentByID(docid);
+			path = d.getPath();
+			filename = d.getTitle();
+			file = new File(path);
+		}
+		/*
 		String fileName = request.getParameter("filename");  //23239283-92489-阿凡达.avi
         fileName = new String(fileName.getBytes("iso8859-1"),"UTF-8");
         //上传的文件都是保存在/WEB-INF/upload目录下的子目录当中
@@ -46,18 +58,24 @@ public class DownloadHandleServlet extends HttpServlet {
         String path = FileHandle.findFileSavePathByFileName(fileName,fileSaveRootPath);
         //得到要下载的文件
         File file = new File(path + "\\" + fileName);
+        */
         //如果文件不存在
+		if (file == null) {
+            request.setAttribute("message", "错误");
+            request.getRequestDispatcher("/message.jsp").forward(request, response);
+            return;
+		}
         if(!file.exists()){
-            request.setAttribute("message", "您要下载的资源已被删除！！");
+            request.setAttribute("message", "您要下载的资源不存在！！");
             request.getRequestDispatcher("/message.jsp").forward(request, response);
             return;
         }
         //处理文件名
-        String realname = fileName.substring(fileName.indexOf("_")+1);
+        //String realname = fileName.substring(fileName.indexOf("_")+1);
         //设置响应头，控制浏览器下载该文件
-        response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(realname, "UTF-8"));
+        response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
         //读取要下载的文件，保存到文件输入流
-        FileInputStream in = new FileInputStream(path + "\\" + fileName);
+        FileInputStream in = new FileInputStream(path);
         //创建输出流
         OutputStream out = response.getOutputStream();
         //创建缓冲区
