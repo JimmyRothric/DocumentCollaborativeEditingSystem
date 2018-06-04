@@ -7,10 +7,12 @@
     pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>在此处插入标题</title>
+
 </head>
 <body>
-<form>
-	<input type ="button" value = "创建文件" onclick = "window.location.href='upload.jsp?method=create'">
+<form action = "DocumentServlet" method = "post">
+<input id="id" type="hidden" name="docPath">
+	<input type ="button" value = "创建文件" onclick = "window.location.href='upload.jsp?function=create'">
 	<!--<input type ="button" value = "下载文件" onclick = "window.location.href='download.jsp'">-->
 	
 	<table class="table table-hover">		
@@ -27,12 +29,12 @@
 		<c:forEach var="doc" varStatus="i" items="${requestScope.docList}">
 			<tbody>
 				<tr>
-					<td><p style="margin-top: 10px;"><a href = "#">${doc.title}</a></p></td>
+					<td><p style="margin-top: 10px;"><input type = "submit" onclick = "document.getElementById('id').value = '${doc.path}'" name = "showdocBtn" value = "${doc.title}"></a></p></td>
 					<td><p style="margin-top: 10px;">${doc.createDate}</p></td>
 					<td><p style="margin-top: 10px;">${doc.lastModifyDate}</p></td>
 					<td><p style="margin-top: 10px;">${doc.version}</p></td>
 					<td><input type="button" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
-					<td><input type="button" value="更新文件" onclick="window.location.href='UploadHandleServlet?docid=${doc.documentID}'"></td>
+					<td><input type="button" value="更新文件" onclick="window.location.href='upload.jsp?function=update&docid=${doc.documentID}'"></td>
 				</tr>
 			</tbody>
 		</c:forEach>

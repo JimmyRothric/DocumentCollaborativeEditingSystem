@@ -42,6 +42,14 @@ public class DocumentServlet extends HttpServlet {
 		     request.getRequestDispatcher("/message.jsp").forward(request, response);
 		     return;
 		}
+		String showdocBtn = request.getParameter("showdocBtn");
+		if (showdocBtn != null) {
+			String docPath = request.getParameter("docPath");
+			System.out.println(docPath);
+			request.setAttribute("src", docPath);
+			request.getRequestDispatcher("/doc.jsp").forward(request, response);
+			return;
+		}
 		if (function == null) {
 			return;
 		}
