@@ -56,12 +56,12 @@ public class UploadHandleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String docid = request.getParameter("docid");
-		
+		String function = request.getParameter("function");
 		Account acc = (Account) session.getAttribute("account");
-		//得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
-        String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
+		//得到上传文件的保存目录
+        String savePath = this.getServletContext().getRealPath("/upload");
         //上传时生成的临时文件保存目录
-        String tempPath = this.getServletContext().getRealPath("/WEB-INF/temp");
+        String tempPath = this.getServletContext().getRealPath("/temp");
         System.out.println(savePath);
         File tmpFile = new File(tempPath);
         if (!tmpFile.exists()) {
@@ -70,7 +70,7 @@ public class UploadHandleServlet extends HttpServlet {
         }
         
         //消息提示
-        String message = "";
+        String message = "上传失败";
         try{
             //使用Apache文件上传组件处理文件上传步骤：
             //1、创建一个DiskFileItemFactory工厂
@@ -147,12 +147,31 @@ public class UploadHandleServlet extends HttpServlet {
                     out.close();
                     //删除处理文件上传时生成的临时文件
                     //item.delete();
-                    message = "文件上传成功！";
-                    DocumentDao ddao = new DocumentDao();
-                    Document doc = new Document(filename,storePath);
-                    ddao.addDocument(doc);
-                    ContributorDao cdao = new ContributorDao();
-                    cdao.addContributor(new Contributor(acc.getAccountID(),doc.getDocumentID(),Contributor.AUTHORITY_DEGREE_POSSESSED));
+                    
+                    if (function != null && function.equals("create")) {
+                    	 
+                    	DocumentDao ddao = new DocumentDao();
+                         Document doc = new Document(filename,storePath);
+                         ddao.addDocument(doc);
+                         ContributorDao cdao = new ContributorDao();
+                         cdao.addContributor(new Contributor(acc.getAccountID(),doc.getDocumentID(),Contributor.AUTHORITY_DEGREE_POSSESSED));
+                         message = "文件创建成功！";
+                    }
+                    if (function != null && function.equals("update")) {
+                    	if (docid != null) {
+                    		DocumentDao ddao = new DocumentDao();
+                    		Document old_doc = ddao.getDocumentByID(docid);
+                    		if (old_doc != null) {
+                    
+                            	 Document doc = new Document(old_doc,filename,storePath);
+                            	 ddao.updateDocument(old_doc, doc);
+                            	 message = "文件更新成功！";
+                    		}
+  
+                    	}
+                    	
+                    }
+                   
                 }
             }
         }catch (FileUploadBase.FileSizeLimitExceededException e) {
@@ -169,6 +188,7 @@ public class UploadHandleServlet extends HttpServlet {
             message= e.getMessage();
             e.printStackTrace();
         }
+        request.setAttribute("loc", "home.jsp");
         request.setAttribute("message",message);
         request.getRequestDispatcher("/message.jsp").forward(request, response);
         

@@ -28,8 +28,11 @@
 		
 		<c:forEach var="doc" varStatus="i" items="${requestScope.docList}">
 			<tbody>
+		
 				<tr>
-					<td><p style="margin-top: 10px;"><input type = "submit" onclick = "document.getElementById('id').value = '${doc.path}'" name = "showdocBtn" value = "${doc.title}"></a></p></td>
+				
+			
+					<td><p style="margin-top: 10px;"><input type = "submit" onclick = "document.getElementById('id').value = '${doc.replace()}';" name = "showdocBtn" value = "${doc.title}"></p></td>
 					<td><p style="margin-top: 10px;">${doc.createDate}</p></td>
 					<td><p style="margin-top: 10px;">${doc.lastModifyDate}</p></td>
 					<td><p style="margin-top: 10px;">${doc.version}</p></td>

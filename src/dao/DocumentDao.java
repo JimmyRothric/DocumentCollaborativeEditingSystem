@@ -74,37 +74,38 @@ public class DocumentDao extends BaseDao {
 	 * @param current_doc
 	 * @return 操作结果成功 or 失败
 	 */
-	public boolean updateDocument(Document doc) {
-		boolean success = false;
+	public boolean updateDocument(Document old_doc,Document doc) {
+	
 		String sql1 = "insert into Document_History values(?, ?, ?, ?, ?, ?)";
-		String sql2 = "delete from Document where Did = ?";
+		String sql2 = "update Document set title = ? , path = ? , last_modify_date = ? , version = ?  where Did = ?";
 		try {
 			Connection con = super.getConnection();
 			//sql 1		将原文档插入Document-History表中
 			PreparedStatement stmt1 = con.prepareStatement(sql1);
-			stmt1.setString(1, doc.getDocumentID());
-			stmt1.setString(2, doc.getTitle());
-			stmt1.setString(3, doc.getPath());
-			stmt1.setTimestamp(4, new Timestamp(doc.getCreateDate().getTime()));
-			stmt1.setTimestamp(5, new Timestamp(doc.getLastModifyDate().getTime()));
-			stmt1.setInt(6, doc.getVersion());
+			stmt1.setString(1, old_doc.getDocumentID());
+			stmt1.setString(2, old_doc.getTitle());
+			stmt1.setString(3, old_doc.getPath());
+			stmt1.setTimestamp(4, new Timestamp(old_doc.getCreateDate().getTime()));
+			stmt1.setTimestamp(5, new Timestamp(old_doc.getLastModifyDate().getTime()));
+			stmt1.setInt(6, old_doc.getVersion());
 			stmt1.executeUpdate();
 			stmt1.close();
 			//step 2	将原文档记录从Document表中删除
 			PreparedStatement stmt2 = con.prepareStatement(sql2);
-			stmt2.setString(1, doc.getDocumentID());
+			
+			stmt2.setString(1,doc.getTitle());
+			stmt2.setString(2,doc.getPath());
+			stmt2.setTimestamp(3, new Timestamp(doc.getLastModifyDate().getTime()));
+			stmt2.setInt(4, doc.getVersion());
+			stmt2.setString(5, doc.getDocumentID());
 			stmt2.executeUpdate();
 			stmt2.close();
 			con.close();
-			success = true;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if (success) {
-			//step 3	将更新后的文档插入Document表中
-			addDocument(doc);
-			return true;
-		}
+	
 		return false;
 	}
 	

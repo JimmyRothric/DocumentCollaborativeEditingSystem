@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>${message}</h1>
+<input type = "button" value = "返回" onclick="window.location.href='${loc}'">
 </body>
 </html>

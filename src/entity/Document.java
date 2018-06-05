@@ -30,6 +30,17 @@ public class Document {
 		this.version = version;
 	}
 
+	public Document(Document old_doc,String title,String path) {
+		super();
+		Date tdate = Calendar.getInstance().getTime();
+		this.documentID = old_doc.documentID;
+		this.title = title;
+		this.path = path;
+		this.createDate = old_doc.createDate;
+		this.lastModifyDate = tdate;
+		this.version = old_doc.version + 1;
+	}
+
 	public Document(String title,String path) {
 		super();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -78,5 +89,11 @@ public class Document {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+	public String replace() {
+		String str = path.substring(path.lastIndexOf("\\upload")+1);
+		return str.replaceAll("\\\\","%");
+	}
+
+	
 
 }

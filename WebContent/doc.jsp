@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -11,7 +11,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 </style>
 </head>
 <body>
-<iframe src="${src}" width='100%' height='100%' frameborder='0' name="_blank" id="_blank" >
+<iframe src="${src.replaceAll('%','\\\\')}" width='100%' height='100%' frameborder='0' name="_blank" id="_blank" >
 </iframe>
 <p>
 <input type = "button" value = "返回" onclick = "javascript:history.back(-1);">

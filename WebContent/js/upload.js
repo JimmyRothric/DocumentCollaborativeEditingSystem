@@ -11,5 +11,6 @@ function getQueryString(name) {
 }
 
 var func = getQueryString("function");
-var url = "UploadHandleServlet?function=" + func;
+var docid = getQueryString("docid");
+var url = "UploadHandleServlet?function=" + func +"&docid=" + docid;
 document.getElementById("form").action = url;
