@@ -36,6 +36,7 @@
 					<td><p style="margin-top: 10px;">${doc.createDate}</p></td>
 					<td><p style="margin-top: 10px;">${doc.lastModifyDate}</p></td>
 					<td><p style="margin-top: 10px;">${doc.version}</p></td>
+					<td><input type="button" value="管理编辑者" onclick="window.location.href='ContributorServlet?function=show&docid=${doc.documentID}'"></td>
 					<td><input type="button" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
 					<td><input type="button" value="更新文件" onclick="window.location.href='upload.jsp?function=update&docid=${doc.documentID}'"></td>
 				</tr>
