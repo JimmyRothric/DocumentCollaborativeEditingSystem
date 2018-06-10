@@ -85,7 +85,7 @@ public class ContributionDao extends BaseDao {
 				String contribution = rs.getString(2);
 				String accountid = rs.getString(3);
 				String path = rs.getString(4);
-				Date upload_date = rs.getDate(5);
+				Date upload_date = new Date(rs.getTimestamp(5).getTime());
 				String state  = rs.getString(6);
 				contributionList.add(new Contribution(documentid, contribution, accountid, path, upload_date, state));
 			}
@@ -116,7 +116,7 @@ public class ContributionDao extends BaseDao {
 				String contribution = rs.getString(2);
 				String accountid = rs.getString(3);
 				String path = rs.getString(4);
-				Date upload_date = rs.getDate(5);
+				Date upload_date = new Date(rs.getTimestamp(5).getTime());
 				String state  = rs.getString(6);
 				contributionList.add(new Contribution(documentid, contribution, accountid, path, upload_date, state));
 			}
@@ -151,6 +151,59 @@ public class ContributionDao extends BaseDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public Contribution getContributionByCID(String ctbid){
+		Contribution ctb = null;
+		String sql = "select * from Contribution where Cid = ?";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, ctbid);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String documentid = rs.getString(1);
+				String contribution = rs.getString(2);
+				String accountid = rs.getString(3);
+				String path = rs.getString(4);
+				Date upload_date = new Date(rs.getTimestamp(5).getTime());
+				String state  = rs.getString(6);
+				ctb = new Contribution(documentid, contribution, accountid, path, upload_date, state);
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ctb;
+	}
+	
+	public ArrayList<Contribution> getContributionByAIDDID(String accid,String docid) {
+		ArrayList<Contribution> contributionList = new ArrayList<Contribution>();
+		String sql = "select * from Contribution where Uid = ? and Did = ?";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, accid);
+			stmt.setString(2, docid);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String documentid = rs.getString(1);
+				String contribution = rs.getString(2);
+				String accountid = rs.getString(3);
+				String path = rs.getString(4);
+				Date upload_date = new Date(rs.getTimestamp(5).getTime());
+				String state  = rs.getString(6);
+				contributionList.add(new Contribution(documentid, contribution, accountid, path, upload_date, state));
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return contributionList;
 	}
 
 }

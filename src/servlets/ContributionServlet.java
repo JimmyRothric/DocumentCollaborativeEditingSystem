@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ContributionDao;
+import entity.Contribution;
+
 /**
  * Servlet implementation class ContributionServlet
  */
@@ -27,7 +30,8 @@ public class ContributionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	/**
@@ -35,7 +39,28 @@ public class ContributionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String function = request.getParameter("function");
+		String ctbid = request.getParameter("ctbid");
+		if (function != null && ctbid != null) {
+			if (function.equals("pass")) {
+				ContributionDao cdao = new ContributionDao();
+				cdao.changeState(ctbid, Contribution.STATE_ACCEPT);
+				response.sendRedirect("DocumentServlet?function=showMyFile");
+				return;
+			}
+			if (function.equals("notpass")) {
+				ContributionDao cdao = new ContributionDao();
+				cdao.changeState(ctbid, Contribution.STATE_REJECT);
+				response.sendRedirect("DocumentServlet?function=showMyFile");
+				return;
+			}
+			if (function.equals("cancel")) {
+				ContributionDao cdao = new ContributionDao();
+				cdao.delContribution(ctbid);
+				response.sendRedirect("DocumentServlet?function=teamFile");
+				return;
+			}
+		}
 	}
 
 }

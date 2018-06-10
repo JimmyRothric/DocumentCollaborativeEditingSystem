@@ -151,8 +151,8 @@ public class DocumentDao extends BaseDao {
 				String id = rs.getString(1);
 				String title = rs.getString(2);
 				String path = rs.getString(3);
-				Date create_date = rs.getDate(4);
-				Date last_modify_date = rs.getDate(5);
+				Date create_date = new Date(rs.getTimestamp(4).getTime());
+				Date last_modify_date = new Date(rs.getTimestamp(5).getTime());
 				int version  = rs.getInt(6);
 				doc = new Document(id, title, path, create_date, last_modify_date, version);
 			}
@@ -186,8 +186,8 @@ public class DocumentDao extends BaseDao {
 				String id = rs.getString(1);
 				String title = rs.getString(2);
 				String path = rs.getString(3);
-				Date create_date = rs.getDate(4);
-				Date last_modify_date = rs.getDate(5);
+				Date create_date = new Date(rs.getTimestamp(4).getTime());
+				Date last_modify_date = new Date(rs.getTimestamp(5).getTime());
 				int version  = rs.getInt(6);
 				docList.add(new Document(id, title, path, create_date, last_modify_date, version));
 			}
@@ -221,8 +221,8 @@ public class DocumentDao extends BaseDao {
 				String id = rs.getString(1);
 				String title = rs.getString(2);
 				String path = rs.getString(3);
-				Date create_date = rs.getDate(4);
-				Date last_modify_date = rs.getDate(5);
+				Date create_date = new Date(rs.getTimestamp(4).getTime());
+				Date last_modify_date = new Date(rs.getTimestamp(5).getTime());
 				int version  = rs.getInt(6);
 				docList.add(new Document(id, title, path, create_date, last_modify_date, version));
 			}
@@ -256,8 +256,8 @@ public class DocumentDao extends BaseDao {
 				String id = rs.getString(1);
 				String title = rs.getString(2);
 				String path = rs.getString(3);
-				Date create_date = rs.getDate(4);
-				Date last_modify_date = rs.getDate(5);
+				Date create_date = new Date(rs.getTimestamp(4).getTime());
+				Date last_modify_date = new Date(rs.getTimestamp(5).getTime());
 				int version  = rs.getInt(6);
 				docList.add(new Document(id, title, path, create_date, last_modify_date, version));
 			}
@@ -289,8 +289,8 @@ public class DocumentDao extends BaseDao {
 				String id = rs.getString(1);
 				String title = rs.getString(2);
 				String path = rs.getString(3);
-				Date create_date = rs.getDate(4);
-				Date last_modify_date = rs.getDate(5);
+				Date create_date = new Date(rs.getTimestamp(4).getTime());
+				Date last_modify_date = new Date(rs.getTimestamp(5).getTime());
 				int version  = rs.getInt(6);
 				doc = new Document(id, title, path, create_date, last_modify_date, version);
 			}
@@ -320,8 +320,8 @@ public class DocumentDao extends BaseDao {
 				String id = rs.getString(1);
 				String title = rs.getString(2);
 				String path = rs.getString(3);
-				Date create_date = rs.getDate(4);
-				Date last_modify_date = rs.getDate(5);
+				Date create_date = new Date(rs.getTimestamp(4).getTime());
+				Date last_modify_date = new Date(rs.getTimestamp(5).getTime());
 				int version  = rs.getInt(6);
 				docList.add(new Document(id, title, path, create_date, last_modify_date, version));
 			}

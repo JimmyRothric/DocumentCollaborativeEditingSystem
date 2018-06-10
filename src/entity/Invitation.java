@@ -1,13 +1,16 @@
 package entity;
 
 public class Invitation {
+	private String documentID;
 	private String senderID;
 	private String receiverID;
-	private String documentID;
-	public Invitation(String senderID, String receiverID, String documentID) {
+	
+
+	public Invitation(String documentID, String senderID, String receiverID) {
+		super();
+		this.documentID = documentID;
 		this.senderID = senderID;
 		this.receiverID = receiverID;
-		this.documentID = documentID;
 	}
 	public String getSenderID() {
 		return senderID;

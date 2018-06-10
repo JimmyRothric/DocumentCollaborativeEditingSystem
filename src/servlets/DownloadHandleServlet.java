@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ContributionDao;
 import dao.DocumentDao;
+import entity.Contribution;
 import entity.Document;
 import handler.FileHandle;
 
@@ -39,6 +41,8 @@ public class DownloadHandleServlet extends HttpServlet {
 		
 		// TODO
 		String docid = request.getParameter("docid");
+		String hdocid = request.getParameter("hdocid");
+		String ctbid = request.getParameter("ctbid");
 		String path = null;
 		String filename = null;
 		File file = null;
@@ -48,6 +52,22 @@ public class DownloadHandleServlet extends HttpServlet {
 			path = d.getPath();
 			filename = d.getTitle();
 			file = new File(path);
+		}
+		if (hdocid != null) {
+			String index = request.getParameter("index");
+			int i = Integer.parseInt(index);
+			DocumentDao ddao = new DocumentDao(); 
+			Document d = ddao.getALLDocumentHistory(hdocid).get(i);
+			path = d.getPath();
+			filename = d.getTitle();
+			file = new File(path);
+		}
+		if (ctbid != null) {
+			ContributionDao cdao = new ContributionDao();
+			Contribution c = cdao.getContributionByCID(ctbid);
+			path = c.getPath();
+			filename = c.getContributionID();
+			file = new File (path);
 		}
 		/*
 		String fileName = request.getParameter("filename");  //23239283-92489-阿凡达.avi

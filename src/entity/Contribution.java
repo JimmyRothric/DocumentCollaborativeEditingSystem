@@ -1,6 +1,10 @@
 package entity;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Contribution {
 	private String documentID;
@@ -21,6 +25,12 @@ public class Contribution {
 	 * 审核状态:接收更改
 	 */
 	public static final String STATE_ACCEPT = "A";
+	public static HashMap<String,String> sMap = new HashMap<>();
+	static {
+		sMap.put("W", "待审核");
+		sMap.put("R", "拒绝");
+		sMap.put("A", "接受");
+	}
 	
 	public Contribution() {
 		
@@ -35,7 +45,18 @@ public class Contribution {
 		this.uploadDate = uploadDate;
 		this.state = state;
 	}
-
+	public Contribution(String documentID, String accountID, String path, String state) {
+		super();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		DecimalFormat df = new DecimalFormat("000"); 
+		Date tdate = Calendar.getInstance().getTime();
+		this.documentID = documentID;
+		this.contributionID = sdf.format(tdate) + df.format(this.hashCode() % 100);
+		this.accountID = accountID;
+		this.path = path;
+		this.uploadDate = tdate;
+		this.state = state;
+	}
 
 	public String getAccountID() {
 		return accountID;
@@ -73,7 +94,14 @@ public class Contribution {
 	public void setState(String state) {
 		this.state = state;
 	}
+	public String replace() {
+		String str = path.substring(path.lastIndexOf("\\upload")+1);
+		return str.replaceAll("\\\\","%");
+	}
 	
+	public String getStateStr() {
+		return sMap.get(state);
+	}
 	
 	
 }

@@ -22,24 +22,55 @@
 				<td>create date</td>
 				<td>last modify date</td>
 				<td>version</td>
-				<td></td>
+				<td>操作</td>
 			</tr>
 		</thead>
 		
-		<c:forEach var="doc" varStatus="i" items="${requestScope.docList}">
+		<c:forEach var="doc" varStatus="doci" items="${requestScope.docList}">
 			<tbody>
 		
 				<tr>
 				
 			
 					<td><p style="margin-top: 10px;"><input type = "submit" onclick = "document.getElementById('id').value = '${doc.replace()}';" name = "showdocBtn" value = "${doc.title}"></p></td>
-					<td><p style="margin-top: 10px;">${doc.createDate}</p></td>
-					<td><p style="margin-top: 10px;">${doc.lastModifyDate}</p></td>
+					<td><p style="margin-top: 10px;">${doc.createDate.toLocaleString()}</p></td>
+					<td><p style="margin-top: 10px;">${doc.lastModifyDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 10px;">${doc.version}</p></td>
 					<td><input type="button" value="管理编辑者" onclick="window.location.href='ContributorServlet?function=show&docid=${doc.documentID}'"></td>
 					<td><input type="button" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
 					<td><input type="button" value="更新文件" onclick="window.location.href='upload.jsp?function=update&docid=${doc.documentID}'"></td>
+					<td><input type="button" value="查看历史文件" onclick="window.location.href='DocumentServlet?function=showHistory&docid=${doc.documentID}'"></td>
 				</tr>
+				
+				<tr>
+						
+					<thead>
+						<tr>
+							<td>contributionID</td>
+							<td>accountID</td>
+							<td>uploadDate</td>
+							<td>state</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					
+					<c:forEach var="ctb" varStatus="ctbi" items="${ctbList[doci.index]}">
+					<tbody>
+		
+						<tr>
+							<td><p style="margin-top: 10px;"><input type = "submit" onclick = "document.getElementById('id').value = '${ctb.replace()}';" name = "showdocBtn" value = "${ctb.contributionID}"></p></td>
+							<td><p style="margin-top: 10px;">${ctb.accountID}</p></td>
+							<td><p style="margin-top: 10px;">${ctb.uploadDate.toLocaleString()}</p></td>
+							<td><p style="margin-top: 10px;">${ctb.getStateStr()}</p></td>
+							<td><input type="button" value="下载文件" onclick="window.location.href='DownloadHandleServlet?ctbid=${ctb.contributionID}''"></td>
+							<td><input type="button" value="审核通过" onclick="window.location.href='ContributionServlet?function=pass&ctbid=${ctb.contributionID}'"></td>
+							<td><input type="button" value="不通过" onclick="window.location.href='ContributionServlet?function=notpass&ctbid=${ctb.contributionID}'"></td>
+						</tr>
+					</tbody>
+					</c:forEach>
+					
+				</tr>
+				
 			</tbody>
 		</c:forEach>
 		

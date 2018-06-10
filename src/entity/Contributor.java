@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.HashMap;
+
 public class Contributor {
 	private String accountID;
 	private String documentID;
@@ -16,6 +18,13 @@ public class Contributor {
 	 * 编辑权限:只读
 	 */
 	public static final String AUTHORITY_DEGREE_READ_ONLY = "R";
+	
+	public static HashMap<String,String> sMap = new HashMap<>();
+	static {
+		sMap.put("P", "所有者");
+		sMap.put("E", "可编辑");
+		sMap.put("R", "可查看");
+	}
 	
 	public Contributor() {
 		
@@ -43,6 +52,9 @@ public class Contributor {
 	}
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+	public String getAuthorityStr() {
+		return sMap.get(authority);
 	}
 	
 	

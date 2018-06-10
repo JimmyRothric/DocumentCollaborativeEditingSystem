@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,9 +21,11 @@ import org.apache.commons.fileupload.ProgressListener;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import dao.ContributionDao;
 import dao.ContributorDao;
 import dao.DocumentDao;
 import entity.Account;
+import entity.Contribution;
 import entity.Contributor;
 import entity.Document;
 import handler.FileHandle;
@@ -47,7 +50,8 @@ public class UploadHandleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	/**
@@ -162,14 +166,32 @@ public class UploadHandleServlet extends HttpServlet {
                     		DocumentDao ddao = new DocumentDao();
                     		Document old_doc = ddao.getDocumentByID(docid);
                     		if (old_doc != null) {
-                    
-                            	 Document doc = new Document(old_doc,filename,storePath);
-                            	 ddao.updateDocument(old_doc, doc);
-                            	 message = "文件更新成功！";
+                    			 ContributionDao cdao = new ContributionDao();
+                    			 ArrayList<Contribution> ctbList = cdao.getALLContributionByDID(docid);
+                    			 boolean flag = true;
+                    			 for (Contribution c : ctbList) {
+                    				 if (c.getState().equals(Contribution.STATE_WAITED)) {
+                    					 flag = false;
+                    					 break;
+                    				 }
+                    			 }
+                    			 if (flag) {
+                    				 Document doc = new Document(old_doc,filename,storePath);
+                                	 ddao.updateDocument(old_doc, doc);
+                                	 message = "文件更新成功！";
+                    			 }else {
+                    				 message = "必须先审核完所有贡献记录再更新文档";
+                    			 }
+                            	
                     		}
-  
                     	}
-                    	
+                    }
+                    if (function != null && function.equals("upload")) {
+                    	if (docid != null) {
+                    		ContributionDao cdao = new ContributionDao();
+                    		cdao.addContribution(new Contribution(docid,acc.getAccountID(),storePath,Contribution.STATE_WAITED));
+                    		message = "文档上传成功！";
+                    	}
                     }
                    
                 }
