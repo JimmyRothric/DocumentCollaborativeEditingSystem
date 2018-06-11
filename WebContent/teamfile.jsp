@@ -22,11 +22,12 @@
 		</thead>
 		
 		<c:forEach var="doc" varStatus="doci" items="${requestScope.docList}">
+			<!--  <h2>${nameList[doci.index]}:</h2> -->
 			<tbody>
 				<tr>
 					<td><p style="margin-top: 10px;"><input type = "submit" onclick = "document.getElementById('id').value = '${doc.replace()}';" name = "showdocBtn" value = "${doc.title}"></p></td>
-					<td><p style="margin-top: 10px;">${doc.createDate}</p></td>
-					<td><p style="margin-top: 10px;">${doc.lastModifyDate}</p></td>
+					<td><p style="margin-top: 10px;">${doc.createDate.toLocaleString()}</p></td>
+					<td><p style="margin-top: 10px;">${doc.lastModifyDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 10px;">${doc.version}</p></td>
 					<td><input type="button" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
 					<td><input type="button" value="上传文件" onclick="window.location.href='upload.jsp?function=upload&docid=${doc.documentID}'"></td>

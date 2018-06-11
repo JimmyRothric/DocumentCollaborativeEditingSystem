@@ -78,7 +78,7 @@ public class InvitationServlet extends HttpServlet {
 						request.setAttribute("message","已邀请该用户");
 					    request.getRequestDispatcher("/message.jsp").forward(request, response);
 					    return;
-					}else if (idao.addInvitation(new Invitation(acc.getAccountID(),recv_id,doc_id))) {
+					}else if (idao.addInvitation(new Invitation(doc_id,acc.getAccountID(),recv_id))) {
 						request.setAttribute("loc","ContributorServlet?function=show&docid="+doc_id);
 						request.setAttribute("message","邀请成功");
 					    request.getRequestDispatcher("/message.jsp").forward(request, response);

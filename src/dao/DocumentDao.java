@@ -310,7 +310,7 @@ public class DocumentDao extends BaseDao {
 	 */
 	public ArrayList<Document> getALLDocumentHistory(String docid) {
 		ArrayList<Document> docList = new ArrayList<Document>();
-		String sql = "select * from Document_History where Did = ?";
+		String sql = "select * from Document_History where Did = ? order by version desc";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);

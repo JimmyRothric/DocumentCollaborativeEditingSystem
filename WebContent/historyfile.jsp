@@ -29,7 +29,7 @@
 					<td><p style="margin-top: 10px;">${doc.lastModifyDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 10px;">${doc.version}</p></td>
 					<td><input type="button" value="下载文件" onclick="window.location.href='DownloadHandleServlet?hdocid=${doc.documentID}&index=${i.index}'"></td>
-					<td><input type="button" value="回滚" onclick="window.location.href='DocumentServlet?function=rollback&hdocid=${doc.documentID}&version=${doc.version}"></td>
+					<td><input type="button" value="回滚" onclick="window.location.href='DocumentServlet?function=rollback&hdocid=${doc.documentID}&version=${doc.version}'"></td>
 				</tr>
 			</tbody>
 		</c:forEach>

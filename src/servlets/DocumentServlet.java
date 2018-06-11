@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.ContributionDao;
+import dao.ContributorDao;
 import dao.DocumentDao;
 import entity.Account;
 import entity.Contribution;
 import entity.Document;
+import handler.FileHandle;
 
 /**
  * Servlet implementation class DocumentServlet
@@ -77,11 +79,17 @@ public class DocumentServlet extends HttpServlet {
 			request.setAttribute("docList", docList);
 			
 			ContributionDao cdao = new ContributionDao();
+			ContributorDao ctdao = new ContributorDao();
+			ArrayList<String> nameList = new ArrayList<String>();
 			ArrayList<ArrayList<Contribution>> ctbList = new ArrayList<ArrayList<Contribution>>();
 			for (Document d :docList) {
 				ctbList.add(cdao.getContributionByAIDDID(account.getAccountID(), d.getDocumentID()));
+				nameList.add(ctdao.getPContributorByDID(d.getDocumentID()).getAccountID());
 			}
 			request.setAttribute("ctbList", ctbList);
+			request.setAttribute("nameList", nameList);
+			
+	
 			
 			request.getRequestDispatcher("/teamfile.jsp").forward(request, response);
 			return;
@@ -107,7 +115,25 @@ public class DocumentServlet extends HttpServlet {
 			response.sendRedirect("DocumentServlet?function=showMyFile");
 			return;
 		}
-		
+		if (function.equals("showRecord")) {
+			String docid = request.getParameter("docid");
+			DocumentDao ddao = new DocumentDao();
+			Document dnow = ddao.getDocumentByID(docid);
+			ArrayList<Document> doldList = ddao.getALLDocumentHistory(docid);
+			ArrayList<ArrayList<Integer>> difAllList = new ArrayList<ArrayList<Integer>>();
+			ArrayList<String> filePathList = new ArrayList<String>();
+			Document dtmp = dnow;
+			filePathList.add(dtmp.getPath().substring(dtmp.getPath().lastIndexOf("\\upload")+1));
+			for (Document d : doldList) {
+				filePathList.add(d.getPath().substring(d.getPath().lastIndexOf("\\upload")+1));
+				difAllList.add(FileHandle.compare(dtmp.getPath(), d.getPath()));
+				dtmp = d;
+			}
+			request.setAttribute("filePathList", filePathList);
+			request.setAttribute("difAllList", difAllList);
+			request.getRequestDispatcher("/filerecord.jsp").forward(request, response);
+			return;
+		}
 		
 		
 	}

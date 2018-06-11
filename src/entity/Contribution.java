@@ -96,7 +96,7 @@ public class Contribution {
 	}
 	public String replace() {
 		String str = path.substring(path.lastIndexOf("\\upload")+1);
-		return str.replaceAll("\\\\","%");
+		return str.replaceAll("\\\\","#");
 	}
 	
 	public String getStateStr() {

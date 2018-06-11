@@ -32,6 +32,7 @@
 				<tr>
 				
 			
+					<!--  <td><a href = "DocumentServlet?showdocBtn=true&docPath=${doc.replace()}">${doc.title}</a></td>-->
 					<td><p style="margin-top: 10px;"><input type = "submit" onclick = "document.getElementById('id').value = '${doc.replace()}';" name = "showdocBtn" value = "${doc.title}"></p></td>
 					<td><p style="margin-top: 10px;">${doc.createDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 10px;">${doc.lastModifyDate.toLocaleString()}</p></td>
@@ -39,6 +40,7 @@
 					<td><input type="button" value="管理编辑者" onclick="window.location.href='ContributorServlet?function=show&docid=${doc.documentID}'"></td>
 					<td><input type="button" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
 					<td><input type="button" value="更新文件" onclick="window.location.href='upload.jsp?function=update&docid=${doc.documentID}'"></td>
+					<td><input type="button" value="查看编辑记录" onclick="window.location.href='DocumentServlet?function=showRecord&docid=${doc.documentID}'"></td>
 					<td><input type="button" value="查看历史文件" onclick="window.location.href='DocumentServlet?function=showHistory&docid=${doc.documentID}'"></td>
 				</tr>
 				

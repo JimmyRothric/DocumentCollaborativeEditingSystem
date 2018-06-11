@@ -145,4 +145,28 @@ public class ContributorDao extends BaseDao {
 		return state;
 	}
 	
+	public Contributor getPContributorByDID(String docid) {
+		Contributor contributor = null;
+		String sql = "select * from Contributor where Did = ? and authority = 'P'";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, docid);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				String accountID = rs.getString(1);
+				String documentID = rs.getString(2);
+				String authority = rs.getString(3);
+				contributor = new Contributor(accountID, documentID, authority);
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return contributor;
+	}
+	
+	
 }
