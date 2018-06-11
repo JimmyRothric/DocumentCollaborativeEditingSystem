@@ -168,5 +168,27 @@ public class ContributorDao extends BaseDao {
 		return contributor;
 	}
 	
+	public ArrayList<Contributor> getEContributorsByDID(String docid) {
+		ArrayList<Contributor> contributorList = new ArrayList<Contributor>();
+		String sql = "select * from Contributor where Did = ? and authority = 'E'";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, docid);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String accountID = rs.getString(1);
+				String documentID = rs.getString(2);
+				String authority = rs.getString(3);
+				contributorList.add(new Contributor(accountID, documentID, authority));
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return contributorList;
+	}
 	
 }

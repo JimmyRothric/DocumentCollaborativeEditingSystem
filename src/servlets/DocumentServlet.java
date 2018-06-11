@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.print.Doc;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import dao.ContributorDao;
 import dao.DocumentDao;
 import entity.Account;
 import entity.Contribution;
+import entity.Contributor;
 import entity.Document;
 import handler.FileHandle;
 
@@ -47,11 +49,33 @@ public class DocumentServlet extends HttpServlet {
 		     request.getRequestDispatcher("/message.jsp").forward(request, response);
 		     return;
 		}
-		String showdocBtn = request.getParameter("showdocBtn");
-		if (showdocBtn != null) {
-			String docPath = request.getParameter("docPath");
+	//	String showdocBtn = request.getParameter("showdocBtn");
+	//	if (showdocBtn != null) {
+		if (function.equals("showdoc")) {
+			String docID = request.getParameter("docid");
+			//String docPath = request.getParameter("docPath");
+			DocumentDao dao = new DocumentDao();
+			ContributionDao ctdao = new ContributionDao();
+			ContributorDao crdao = new ContributorDao();
+			
+			Document document = dao.getDocumentByID(docID);
+			String docPath = document.getPath();
+			docPath = docPath.substring(docPath.lastIndexOf("\\upload")+1);
+			
+			ArrayList<Contribution> contributionList = new ArrayList<Contribution>();
+			contributionList = ctdao.getALLContributionByDID(docID);
+			
+			ArrayList<Contributor> contributorList = new ArrayList<Contributor>();
+			contributorList = crdao.getEContributorsByDID(docID);
+			
+			String authority = crdao.getAuthority(account.getAccountID(), docID);
+			
 			System.out.println(docPath);
+			request.setAttribute("doc", document);
 			request.setAttribute("src", docPath);
+			request.setAttribute("contributionList", contributionList);
+			request.setAttribute("contributorList", contributorList);
+			request.setAttribute("authority", authority);
 			request.getRequestDispatcher("/doc.jsp").forward(request, response);
 			return;
 		}

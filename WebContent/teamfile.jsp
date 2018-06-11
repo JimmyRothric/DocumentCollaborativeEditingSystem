@@ -16,10 +16,10 @@
 	<table class="table table-hover">		
 		<thead>
 			<tr align="center">
-				<td>title</td>
-				<td>create date</td>
-				<td>last modify date</td>
-				<td>version</td>
+				<td>Title</td>
+				<td>Create Date</td>
+				<td>Last Modify Date</td>
+				<td>Version</td>
 				<td></td>
 			</tr>
 		</thead>
@@ -28,13 +28,17 @@
 			<!--  <h2>${nameList[doci.index]}:</h2> -->
 			<tbody>
 				<tr align="center">
+				<!--  
 					<td><p style="margin-top: 10px"><input type = "submit" class="btn btn-link" style="font-size: 20px" onclick = "document.getElementById('id').value = '${doc.replace()}';" name = "showdocBtn" value = "${doc.title}"></p></td>
+				-->
+					<td><p style="margin-top: 10px"><input type="button" style="font-size: 20px" class="btn btn-link" onclick="window.location.href='DocumentServlet?function=showdoc&docid=${doc.documentID}'" value="${doc.title}"></p></td>
 					<td><p style="margin-top: 20px">${doc.createDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 20px">${doc.lastModifyDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 20px">${doc.version}</p></td>
 					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
 					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="上传文件" onclick="window.location.href='upload.jsp?function=upload&docid=${doc.documentID}'"></td>
 				</tr>
+				<!--  
 				<tr>
 					<thead>
 						<tr align="center">
@@ -60,6 +64,7 @@
 					</tbody>
 					</c:forEach>
 				</tr>
+				-->
 			</tbody>
 		</c:forEach>
 		
