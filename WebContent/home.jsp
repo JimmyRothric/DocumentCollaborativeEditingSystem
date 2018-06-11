@@ -18,13 +18,14 @@
 	<a href="home.jsp">主页 </a>
 	<a href="DocumentServlet?function=showMyFile">我的文件</a>
 	<a href="DocumentServlet?function=teamFile">协同编辑文件</a>
- 	-->
+ 	
 	<p>
 	<h3>个人资料：</h3>
 	账号：${account.accountID}<br/>
 	姓名：${account.name}<br/>
 	邮箱：${account.email}<br/>
 	</p>
+	-->
 	<p>
 	<h3>邀请信息：</h3>
 	

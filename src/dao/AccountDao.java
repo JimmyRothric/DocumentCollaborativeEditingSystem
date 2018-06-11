@@ -166,25 +166,20 @@ public class AccountDao extends BaseDao {
 	
 	
 	/**
-	 * 按ID获取Account实例
+	 * 按ID获取Name
 	 * @param uid
 	 * @return
 	 */
-	/*
-	public Account getAccount(String uid) {
-		Account acc = null;
-		String sql = "select * from Account where Uid = ?";
+	public String getAccount(String uid) {
+		String name = null;
+		String sql = "select name from Account where Uid = ?";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, uid);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				String id = rs.getString(1);
-				String password = rs.getString(2);
-				String name = rs.getString(3);
-				String email = rs.getString(4);
-				acc = new Account(id, password, name, email);
+				name = rs.getString(1);
 			}
 			stmt.close();
 			con.close();
@@ -192,8 +187,8 @@ public class AccountDao extends BaseDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return acc;
+		return name;
 	}
-	*/
+	
 	
 }

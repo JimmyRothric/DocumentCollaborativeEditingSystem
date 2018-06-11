@@ -35,7 +35,7 @@
 	
 	<!-- 用户已登录 -->
 	<c:if test = "${account.accountID ne null}">
-		<!--<a href="myfile.jsp">
+		<!--<a href="notifications.jsp">
 		  <button type="button" class="btn btn-link btn-sm" style="background-color: #000000">
 			<span class="glyphicon glyphicon-bell" style="color: #aaaaaa"></span>
 			<span class="badge" style="background-color: #aaaaaa">21</span>
@@ -44,7 +44,7 @@
         
 		<div id="head" class="btn-group">
 		<!-- 个人主页 -->
-			<button type="button" class="btn btn-default btn-sm" onclick="window.location.href='home.jsp'">
+			<button type="button" class="btn btn-default btn-sm" onclick="window.location.href='profile.jsp'">
 		  		<span class="glyphicon glyphicon-user"></span> ${account.name}
 			</button>
 			<button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='login.jsp?logout=true'">

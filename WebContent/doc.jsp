@@ -15,7 +15,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 <div class="container-fluid">
 
 	<span style="font-size: 20px">
-		<a href="DocumentServlet?function=showMyFile">${account.name}</a>
+		<a href="DocumentServlet?function=showMyFile&accid=${owner}">${owner}</a>
 		</span>
 	<span style="font-size: 25px">
 		/<a href="DocumentServlet?function=showdoc&docid='${doc.documentID}'">${doc.title}</a>
@@ -81,7 +81,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 						</tr>
 					</tbody>
 				</c:if>
-				<c:if test="${ctb.state eq 'W' and authority eq 'E'}">
+				<c:if test="${ctb.state eq 'W' and authority eq 'E' and ctb.accountID eq account.accountID}">
 				<tbody>
 						<tr align="center">
 							<td><p style="margin-top: 20px">${ctb.contributionID}</p></td>
@@ -134,7 +134,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 			</table>
 			<!-- Invite -->
 			<c:if test="${authority eq 'P'}">
-			<div class="col-lg-6" style="float: right; padding-right: 5%; padding-bottom: 5%">
+			<div class="col-lg-6" style="float: right; padding-right: 5%; margin-top: 10%">
 				<form action="InvitationServlet" method = "post">
 					<input type="hidden" name="doc_id" value="${doc.documentID}">
 					<div class="input-group form-group">

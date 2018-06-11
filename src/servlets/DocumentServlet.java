@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.AccountDao;
 import dao.ContributionDao;
 import dao.ContributorDao;
 import dao.DocumentDao;
@@ -60,6 +61,7 @@ public class DocumentServlet extends HttpServlet {
 			
 			Document document = dao.getDocumentByID(docID);
 			String docPath = document.getPath();
+			System.out.println("123"+docPath);
 			docPath = docPath.substring(docPath.lastIndexOf("\\upload")+1);
 			
 			ArrayList<Contribution> contributionList = new ArrayList<Contribution>();
@@ -68,11 +70,13 @@ public class DocumentServlet extends HttpServlet {
 			ArrayList<Contributor> contributorList = new ArrayList<Contributor>();
 			contributorList = crdao.getEContributorsByDID(docID);
 			
+			String owner = crdao.getPContributorByDID(docID).getAccountID();
 			String authority = crdao.getAuthority(account.getAccountID(), docID);
 			
 			System.out.println(docPath);
 			request.setAttribute("doc", document);
 			request.setAttribute("src", docPath);
+			request.setAttribute("owner", owner);
 			request.setAttribute("contributionList", contributionList);
 			request.setAttribute("contributorList", contributorList);
 			request.setAttribute("authority", authority);
@@ -84,8 +88,12 @@ public class DocumentServlet extends HttpServlet {
 		}
 		
 		if (function.equals("showMyFile")) {
+			String accid = request.getParameter("accid");
+			if (accid == null) {
+				accid = account.getAccountID();
+			}
 			DocumentDao ddao = new DocumentDao();
-			ArrayList<Document> docList = ddao.getPossessedDocumentByAID(account.getAccountID());
+			ArrayList<Document> docList = ddao.getPossessedDocumentByAID(accid);
 			request.setAttribute("docList", docList);
 			
 			ContributionDao cdao = new ContributionDao();
