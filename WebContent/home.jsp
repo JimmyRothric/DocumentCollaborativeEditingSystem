@@ -14,11 +14,11 @@
 <%@ include file="head.jsp" %>
 <div style="position: relative; top: 50px">
 <div class="container">
-	
+	<!-- 
 	<a href="home.jsp">主页 </a>
 	<a href="DocumentServlet?function=showMyFile">我的文件</a>
 	<a href="DocumentServlet?function=teamFile">协同编辑文件</a>
-
+ 	-->
 	<p>
 	<h3>个人资料：</h3>
 	账号：${account.accountID}<br/>
@@ -53,8 +53,8 @@
 					<td>${inv.senderID}</td>
 					<td>${inv.receiverID}</td>
 					<td>${inv.documentID}</td>
-					<td><input type="button" value="接受" onclick="window.location.href='InvitationServlet?function=accept&sender_id=${inv.senderID}&receiver_id=${inv.receiverID}&document_id=${inv.documentID}'">
-					<input type="button" value="忽略" onclick="window.location.href='InvitationServlet?function=ignore&sender_id=${inv.senderID}&receiver_id=${inv.receiverID}&document_id=${inv.documentID}'"></td>
+					<td><input type="button"  class="btn btn-success" value="接受" onclick="window.location.href='InvitationServlet?function=accept&sender_id=${inv.senderID}&receiver_id=${inv.receiverID}&document_id=${inv.documentID}'">
+					<input type="button"  class="btn btn-danger" value="忽略" onclick="window.location.href='InvitationServlet?function=ignore&sender_id=${inv.senderID}&receiver_id=${inv.receiverID}&document_id=${inv.documentID}'"></td>
 				</tr>
 			</tbody>
 		</c:forEach>
@@ -75,7 +75,7 @@
 					<td>${inv.senderID}</td>
 					<td>${inv.receiverID}</td>
 					<td>${inv.documentID}</td>
-					<td><input type="button" value="撤销" onclick="window.location.href='InvitationServlet?function=cancel&sender_id=${inv.senderID}&receiver_id=${inv.receiverID}&document_id=${inv.documentID}'"></td>
+					<td><input type="button" class="btn btn-danger" value="撤销" onclick="window.location.href='InvitationServlet?function=cancel&sender_id=${inv.senderID}&receiver_id=${inv.receiverID}&document_id=${inv.documentID}'"></td>
 				</tr>
 			</tbody>
 		</c:forEach>

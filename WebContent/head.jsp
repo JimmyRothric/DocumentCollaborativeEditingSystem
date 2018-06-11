@@ -13,6 +13,12 @@
         </a> 
     </div> 
     <div>
+    
+    <ul class="nav navbar-nav navbar-left">
+		<li><a href="DocumentServlet?function=showMyFile" style="color: white">我的文件</a></li> 
+		<li><a href="DocumentServlet?function=teamFile" style="color: white">协同编辑文件</a></li>
+	</ul>
+	
     <form class="navbar-form navbar-right">
     
     <!-- 用户未登录 -->

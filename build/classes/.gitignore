@@ -1,4 +1,6 @@
-/servlets/
-/entity/
 /dao/
+/entity/
+/filters/
 /handler/
+/servlets/
+/test/
