@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		System.out.println("123456");
 		HttpSession session = request.getSession();
 		if (username != null && password != null) {
 			AccountDao adao = new AccountDao();

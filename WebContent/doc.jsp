@@ -18,7 +18,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 		<a href="DocumentServlet?function=showMyFile&accid=${owner}">${owner}</a>
 		</span>
 	<span style="font-size: 25px">
-		/<a href="DocumentServlet?function=showdoc&docid='${doc.documentID}'">${doc.title}</a>
+		/<a href="DocumentServlet?function=showdoc&docid=${doc.documentID}">${doc.title}</a>
 	</span>
 	
 	<ul id="myTab" class="nav nav-tabs">

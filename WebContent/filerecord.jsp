@@ -9,7 +9,12 @@
 </head>
 <body>
 <c:forEach var="p" varStatus="i" items="${filePathList}">
+	<p>
 	<iframe src = ${p }></iframe>
+	<c:forEach var="s" varStatus="i2" items="${difAllList[i.index]}">
+	${s}
+	</c:forEach>
+	</p>
 </c:forEach>
 <p>
 <input type = "button" value = "返回" onclick = "javascript:history.back(-1);">

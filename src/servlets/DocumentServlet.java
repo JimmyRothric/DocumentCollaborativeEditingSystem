@@ -50,6 +50,9 @@ public class DocumentServlet extends HttpServlet {
 		     request.getRequestDispatcher("/message.jsp").forward(request, response);
 		     return;
 		}
+		if (function == null) {
+			return;
+		}
 	//	String showdocBtn = request.getParameter("showdocBtn");
 	//	if (showdocBtn != null) {
 		if (function.equals("showdoc")) {
@@ -83,9 +86,7 @@ public class DocumentServlet extends HttpServlet {
 			request.getRequestDispatcher("/doc.jsp").forward(request, response);
 			return;
 		}
-		if (function == null) {
-			return;
-		}
+
 		
 		if (function.equals("showMyFile")) {
 			String accid = request.getParameter("accid");
