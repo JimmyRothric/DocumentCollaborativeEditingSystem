@@ -1,71 +1,103 @@
-/**
- * register.jsp
- * check this form's validity
- */
-function isRightID(str) {
-	var reID = /^[[a-zA-Z0-9]{5,20}$/;
-	return(reID.test(str));
-}
+﻿
 
-function isRightEmail(str) {
-	var reEmail = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
-	return(reEmail.test(str));
-}
+$(document).ready(function() {
+    $('#login').bootstrapValidator({
+      //排除无需验证的控件，比如被禁用的或者被隐藏的  
+        //submitButtons: '#btn-test',//指定提交按钮，如果验证失败则变成disabled，但我没试成功，反而加了这句话非submit按钮也会提交到action指定页面  
+          
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
 
-function isRightPassword(str) {
-	var rePassword = /^[[a-zA-Z0-9]{5,20}$/;
-	return(rePassword.test(str));
-}
+    fields: {           
+         username: {
+          message: 'ID不合法',
+          validators: {  
+                    notEmpty: {//检测非空,radio也可用  
+                        message: 'ID必须输入'  
+                    },  
+                    
+                    stringLength: {//检测长度  
+                        min: 6,  
+                        max: 15,  
+                        message: '长度必须在6-15之间'  
+                    }
+                }
+            },
+             password: {              
+              validators: {  
+                    notEmpty: {//检测非空,radio也可用  
+                        message: '密码必须输入'  
+                    }
+                }
+            },
+        }
+    });
+});  
+    $(document).ready(function() {
+        $('#register').bootstrapValidator({
+          //排除无需验证的控件，比如被禁用的或者被隐藏的  
+            //submitButtons: '#btn-test',//指定提交按钮，如果验证失败则变成disabled，但我没试成功，反而加了这句话非submit按钮也会提交到action指定页面  
+              
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
 
-function isPasswordConsistent(str0, str1) {
-	return (str0 == str1);
-}
-
-//Test
-/*
-	var id = "as123456789";
-	var email = "1abc@163.com";
-	var str0 = "Abcd";
-	var str1 = "abcd";
-	if (isPasswordConsistent(str0, str1)) {
-		alert("Consistent");
-	} else {
-		alert("Inconsistent");
-	}
-	if (isRightEmail(email)) {
-		alert("right Email");
-	}
-	if (isRightID(id)) {
-		alert("right ID");
-	} else {
-		alert("wrong ID");
-	}
-*/
-function isValid() {
-	var id = document.getElementById("accountid").value;
-	var email = document.getElementById("email").value;
-	var name = document.getElementById("name").value;
-	var p0 = document.getElementById("password0").value;
-	var p1 = document.getElementById("password1").value;
-	if (!isRightID(id)) {
-		alert("账号ID应为5-20位的字母或数字");
-		return false;
-	} 
-	if (!isRightEmail(email)) {
-		alert("邮箱格式错误");
-		return false;
-	}
-	if (!isRightID(name)) {
-		alert("用户名应为5-20位的字母或数字");
-		return false;
-	}
-	if (!isRightPassword(p0)) {
-		alert("密码格式错误");
-		return false;
-	}
-	if (!isPasswordConsistent(p0, p1)) {
-		alert("两次密码不一致");
-		return false;
-	}
-	return true;
-}
+        fields: {           
+             id: {
+              message: '用户名不合法',
+              validators: {  
+                        notEmpty: {//检测非空,radio也可用  
+                            message: 'ID必须输入'  
+                        },  
+                        stringLength: {//检测长度  
+                            min: 6,  
+                            max: 15,  
+                            message: '长度必须在6-15之间'  
+                        }
+                    }
+                },
+                 email: {              
+                  validators: {  
+                        notEmpty: {//检测非空,radio也可用  
+                            message: '邮箱必须输入'  
+                        },
+                        emailAddress: {//验证email地址  
+                            message: '不是正确的email地址'  
+                        },                  
+                    }
+                },
+                 name: {              
+                    validators: {  
+                          notEmpty: {//检测非空,radio也可用  
+                              message: '姓名必须输入'  
+                          }
+                      }
+                  },
+                 password: {              
+                      validators: {  
+                            notEmpty: {//检测非空,radio也可用  
+                                message: '密码必须输入'  
+                            },
+                      stringLength: {//检测长度  
+                            min: 6,  
+                            max: 15,  
+                            message: '长度必须在6-15之间'  
+                            },
+                      different: {
+                            	field:'id',
+                            	message:'密码不能与ID相同'
+                            }     
+                        }
+                    },
+                
+                  }                             
+        });
+       
+    });  
+    
+    
