@@ -1,3 +1,5 @@
+<%@page import="entity.Account"%>
+<%@page import="dao.InvitationDao"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -39,7 +41,14 @@
 		<!--<a href="notifications.jsp">-->
 		<button type="button" class="btn btn-link btn-sm" style="background-color: #000000; text-decoration: none" onclick="window.location.href='notifications.jsp'">
 			<span class="glyphicon glyphicon-bell" style="color: #aaaaaa"></span>
-			<span class="badge" style="background-color: #aaaaaa">1</span>
+			<span class="badge" style="background-color: #aaaaaa">
+			<%
+				InvitationDao idao = new InvitationDao();
+				Account acc = (Account)session.getAttribute("account");
+				int cnt = idao.getCountInvitationofReceiver(acc.getAccountID());
+				out.print(cnt);
+			%>
+			</span>
         </button> 
        <!-- </a>-->
         

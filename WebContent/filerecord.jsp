@@ -10,10 +10,12 @@
 <body>
 <c:forEach var="p" varStatus="i" items="${filePathList}">
 	<p>
+	<h3>文档${i.count}</h3>
 	<iframe src = ${p }></iframe>
-	<c:forEach var="s" varStatus="i2" items="${difAllList[i.index]}">
-	${s}
-	</c:forEach>
+	<c:if test = "${!(i.last) }">
+	<h4>对比文档${i.count}和${i.count+1}</h4>
+	<iframe src = ${diffPathList[i.index] }></iframe>
+	</c:if>
 	</p>
 </c:forEach>
 <p>
