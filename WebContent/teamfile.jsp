@@ -36,7 +36,9 @@
 					<td><p style="margin-top: 20px">${doc.lastModifyDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 20px">${doc.version}</p></td>
 					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
-					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="上传文件" onclick="window.location.href='upload.jsp?function=upload&docid=${doc.documentID}'"></td>
+					<!--  		
+						<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="上传文件" onclick="window.location.href='upload.jsp?function=upload&docid=${doc.documentID}'"></td>
+					-->
 				</tr>
 				<!--  
 				<tr>

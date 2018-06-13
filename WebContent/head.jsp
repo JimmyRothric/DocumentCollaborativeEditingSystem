@@ -5,7 +5,7 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 导航栏 -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #000000;"> 
 <div class="container-fluid"> 
     <div class="navbar-header" style="padding-left: 3%"> 
         <a class="navbar-brand" href="home.jsp" style="padding-top: 5%">
@@ -32,13 +32,14 @@
 			</button>
 		</div>
 	</c:if>
+	<!--  -->
 	
 	<!-- 用户已登录 -->
 	<c:if test = "${account.accountID ne null}">
-		<!--<a href="notifications.jsp">
-		  <button type="button" class="btn btn-link btn-sm" style="background-color: #000000">
+		<!--<a href="notifications.jsp">-->
+		<button type="button" class="btn btn-link btn-sm" style="background-color: #000000; text-decoration: none" onclick="window.location.href='notifications.jsp'">
 			<span class="glyphicon glyphicon-bell" style="color: #aaaaaa"></span>
-			<span class="badge" style="background-color: #aaaaaa">21</span>
+			<span class="badge" style="background-color: #aaaaaa">1</span>
         </button> 
        <!-- </a>-->
         
@@ -52,6 +53,7 @@
 			</button>
 		</div>
 	</c:if>
+	<!--  -->
 	</form>
     </div>
 </div>

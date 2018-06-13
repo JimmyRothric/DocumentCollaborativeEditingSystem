@@ -29,14 +29,59 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 	</ul>
 	
 	<div id="myTabContent" class="tab-content">
-		
+	
+		<!-- DOC -->
 		<div class="tab-pane fade in active" id="doc">
-			<iframe src="${src.replaceAll('#','\\\\')}" width='100%' height='100%' frameborder='0' name="_blank" id="_blank" >
-			</iframe>
-			<p>
-				<input type = "button" value = "返回" onclick = "javascript:history.back(-1);">
-			</p>
+			<div class="row" style="float: right; padding-right: 3%">
+				<input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'">
+				<button type="submit" style="margin-top: 15px" class="btn btn-default" data-toggle="modal" onclick="$('#update').modal('show');">  
+					 更新文件
+				</button>
+				<!-- 
+					<input type="button" style="margin-top: 15px" class="btn btn-default" value="更新文件" onclick="window.location.href='upload.jsp?function=update&docid=${doc.documentID}'">
+				 -->
+				<input type="button" style="margin-top: 15px" class="btn btn-default" value="编辑记录" onclick="window.location.href='DocumentServlet?function=showRecord&docid=${doc.documentID}'">
+				<input type="button" style="margin-top: 15px" class="btn btn-default" value="历史文件" onclick="window.location.href='DocumentServlet?function=showHistory&docid=${doc.documentID}'">
+			</div>
+			 
+			<!-- modal -->
+			<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title">上传文件</h4>
+		            </div>
+		            
+		            <form id="update_form" action="UploadHandleServlet" enctype="multipart/form-data" method="post">
+		           
+					<!-- body -->
+		            <div class="modal-body">
+			            <input id="update_file" name="file" type="file" style="display: none">
+						<div class="input-group form-group">
+						   	<input id="update_path" class="form-control content" type="text">
+						   	<span class="input-group-btn">
+								<button type="button" class="btn btn-default" onclick="$('input[id=update_file]').click();">Browse</button>
+							</span>
+						</div>
+					</div>
+					<!-- /body -->
+					
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary" onclick="update();">提交</button>
+		            </div>
+		            </form>
+		            
+		        </div>
+		    </div>
+		    </div><!-- /modal -->
+			
+			<div style="padding-top: 3%">
+				<iframe src="${src.replaceAll('#','\\\\')}" width='100%' height='100%' frameborder='0' name="_blank" id="_blank" >
+				</iframe>
+			</div>
 		</div>
+		<!-- /DOC -->
 		
 		<!-- COMMIT -->
 		<div class="tab-pane fade" id="commit">
@@ -115,8 +160,8 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 						<tr align="center">
 							<td><p style="margin-top: 20px">${contributor.accountID}</p></td>
 							<td><p style="margin-top: 20px">${contributor.getAuthorityStr()}</p></td>
-							<td><input type="button" style="margin-top: 15px" id="changeAuthority" class="btn btn-warning" value="修改权限" onclick="window.location.href='ContributorServlet?function=change&accid=${ctbtr.accountID}&docid=${ctbtr.documentID}'"></td>
-							<td><input type="button" style="margin-top: 15px" class="btn btn-danger" value="删除" onclick="window.location.href='ContributorServlet?function=del&accid=${ctbtr.accountID}&docid=${ctbtr.documentID}'"></td>
+							<td><input type="button" style="margin-top: 15px" id="changeAuthority" class="btn btn-warning" value="修改权限" onclick="window.location.href='ContributorServlet?function=change&accid=${contributor.accountID}&docid=${contributor.documentID}'"></td>
+							<td><input type="button" style="margin-top: 15px" class="btn btn-danger" value="删除" onclick="window.location.href='ContributorServlet?function=del&accid=${contributor.accountID}&docid=${contributor.documentID}'"></td>
 						</tr>
 					</tbody>
 				</c:if>
@@ -156,8 +201,24 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 		</div>
 	
 	</div>
+	
+	
+		
 
 </div>
 </div>
+
+<script>
+	$('input[id=update_file]').change(function() {
+		$('#update_path').val($(this).val().substring(12));
+	});
+
+	function update() {
+		var url = "UploadHandleServlet?function=update&docid=" + ${doc.documentID};
+		document.getElementById("update_form").action = url;
+		document.getElementById("update_form").submit(); 
+	}
+</script>
+
 </body>
 </html>

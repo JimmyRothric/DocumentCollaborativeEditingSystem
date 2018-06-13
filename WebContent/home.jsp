@@ -25,11 +25,12 @@
 	姓名：${account.name}<br/>
 	邮箱：${account.email}<br/>
 	</p>
-	-->
+	
 	<p>
 	<h3>邀请信息：</h3>
 	
 	<%
+		/*
 		InvitationDao idao = new InvitationDao();
 		Account acc = (Account)session.getAttribute("account");
 		String accid = acc.getAccountID();
@@ -37,6 +38,7 @@
 		ArrayList<Invitation> sendList = idao.getInvitationofSender(accid);
 		request.setAttribute("recvList", recvList);
 		request.setAttribute("sendList", sendList);
+		*/
 	%>
 	<h4>收到的邀请：</h4>
 		<table>		
@@ -81,7 +83,7 @@
 			</tbody>
 		</c:forEach>
 	</table>
-	
+	-->
 	
 
 </div>

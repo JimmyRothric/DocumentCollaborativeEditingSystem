@@ -16,16 +16,51 @@
 <div class="container-fluid">
 
 	<div style="float: right">
-		<button type="submit" class="btn btn-primary col-md-12" onclick="window.location.href='upload.jsp?function=create'"> 
+		<!--  
+		<button type="submit" class="btn btn-primary col-md-12" data-toggle="modal" onclick="window.location.href='upload.jsp?function=create'">
+		-->
+		<button type="submit" class="btn btn-primary col-md-12" data-toggle="modal" onclick="$('#create').modal('show');">  
 			<span class="glyphicon glyphicon-plus"></span> 创建文件
-		</button> 
+		</button>
+		 
+		<!-- modal -->
+		<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">上传文件</h4>
+	            </div>
+	            
+	            <form id="create_form" action="UploadHandleServlet" enctype="multipart/form-data" method="post">
+	            <!-- body -->
+	            <div class="modal-body">
+		            <input id="file" name="file" type="file" style="display: none">
+					<div class="input-group form-group">
+					   	<input id="path" class="form-control content" type="text">
+					   	<span class="input-group-btn">
+							<button type="button" class="btn btn-default" onclick="$('input[id=file]').click();">Browse</button>
+						</span>
+					</div>
+				</div>
+				<!-- /body -->
+				
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary" onclick="create();">提交</button>
+	            </div>
+	            </form>
+	            
+	        </div>
+	    </div>
+	    </div><!-- /modal -->
+	    
 		<!--<input type="button" class="btn btn-primary" value="创建文件" onclick = "window.location.href='upload.jsp?function=create'">
 		<!--<input type ="button" value = "下载文件" onclick = "window.location.href='download.jsp'">-->
 	</div>
 	
 	<form action="DocumentServlet" method="post">
 	<input id="id" type="hidden" name="docPath">
-	<table class="table table-hover" >		
+	<table class="table table-hover">		
 		<thead>
 			<tr align="center">
 				<td>Title</td>
@@ -48,13 +83,13 @@
 					<td><p style="margin-top: 20px">${doc.createDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 20px">${doc.lastModifyDate.toLocaleString()}</p></td>
 					<td><p style="margin-top: 20px">${doc.version}</p></td>
+					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
 					<!-- 
 					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="管理编辑者" onclick="window.location.href='ContributorServlet?function=show&docid=${doc.documentID}'"></td>
-					 -->
-					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'"></td>
 					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="更新文件" onclick="window.location.href='upload.jsp?function=update&docid=${doc.documentID}'"></td>
 					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="查看编辑记录" onclick="window.location.href='DocumentServlet?function=showRecord&docid=${doc.documentID}'"></td>
 					<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="查看历史文件" onclick="window.location.href='DocumentServlet?function=showHistory&docid=${doc.documentID}'"></td>
+					 -->
 				</tr>
 				<!--  
 				<tr>
@@ -93,5 +128,17 @@
 	</form>
 </div>
 </div>
+
+<script>
+	$('input[id=file]').change(function() {
+		$('#path').val($(this).val().substring(12));
+	});
+
+	function create() {
+		var url = "UploadHandleServlet?function=create";
+		document.getElementById("create_form").action = url;
+		document.getElementById("create_form").submit(); 
+	}
+</script>
 </body>
 </html>

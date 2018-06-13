@@ -105,6 +105,7 @@ public class UploadHandleServlet extends HttpServlet {
             upload.setSizeMax(1024*1024*10);
             //4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
             List<FileItem> list = upload.parseRequest(request);
+            System.out.println(list);
             for(FileItem item : list){
                 //如果fileitem中封装的是普通输入项的数据
                 if(item.isFormField()){
@@ -154,17 +155,20 @@ public class UploadHandleServlet extends HttpServlet {
                     
                     if (function != null && function.equals("create")) {
                     	 
-                    	DocumentDao ddao = new DocumentDao();
+                    	 DocumentDao ddao = new DocumentDao();
                          Document doc = new Document(filename,storePath);
                          ddao.addDocument(doc);
                          ContributorDao cdao = new ContributorDao();
                          cdao.addContributor(new Contributor(acc.getAccountID(),doc.getDocumentID(),Contributor.AUTHORITY_DEGREE_POSSESSED));
                          message = "文件创建成功！";
+                         response.sendRedirect("DocumentServlet?function=showMyFile");
+                         return;
                     }
                     if (function != null && function.equals("update")) {
                     	if (docid != null) {
                     		DocumentDao ddao = new DocumentDao();
                     		Document old_doc = ddao.getDocumentByID(docid);
+                    		System.out.println("docid=" + docid+"|");
                     		if (old_doc != null) {
                     			 ContributionDao cdao = new ContributionDao();
                     			 ArrayList<Contribution> ctbList = cdao.getALLContributionByDID(docid);
