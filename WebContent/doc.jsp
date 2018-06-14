@@ -42,6 +42,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 				 -->
 				<input type="button" style="margin-top: 15px" class="btn btn-default" value="编辑记录" onclick="window.location.href='DocumentServlet?function=showRecord&docid=${doc.documentID}'">
 				<input type="button" style="margin-top: 15px" class="btn btn-default" value="历史文件" onclick="window.location.href='DocumentServlet?function=showHistory&docid=${doc.documentID}'">
+				<input type="button" style="margin-top: 15px" class="btn btn-default" value="查看贡献" onclick="window.location.href='DocumentServlet?function=showContribution&docid=${doc.documentID}'">
 			</div>
 			 
 			<!-- modal -->

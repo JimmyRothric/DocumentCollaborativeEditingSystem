@@ -3,6 +3,8 @@ package servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Random;
 
 import javax.print.Doc;
 import javax.servlet.ServletException;
@@ -149,6 +151,36 @@ public class DocumentServlet extends HttpServlet {
 			response.sendRedirect("DocumentServlet?function=showMyFile");
 			return;
 		}
+		if (function.equals("showContribution")) {
+			String docid = request.getParameter("docid");
+			ContributionDao cdao = new ContributionDao();
+			ContributorDao ctdao = new ContributorDao();
+			ArrayList<Contributor> ctorList = ctdao.getEContributorsByDID(docid);
+			ArrayList<String> textList = new ArrayList<String>();
+			ArrayList<Double> dataList = new ArrayList<Double>();
+			ArrayList<String> colorList = new ArrayList<String>();
+			for (Contributor c : ctorList) {
+				textList.add("\""+c.getAccountID()+"\"");
+				dataList.add((double) cdao.getContributionByAIDDID(c.getAccountID(), docid).size());
+				colorList.add("\""+getRndColor()+"\"");
+			}
+			double sum = 0;
+			for (Double d : dataList) {
+				sum += d.doubleValue();
+			}
+			for (int i = 0; i < dataList.size(); i++) {
+				dataList.set(i, dataList.get(i) / sum);
+			}
+		
+			
+			request.setAttribute("textList", textList);
+			request.setAttribute("dataList", dataList);
+			request.setAttribute("colorList", colorList);
+			
+			request.getRequestDispatcher("/contribution.jsp").forward(request, response);
+			return;
+			
+		}
 		if (function.equals("showRecord")) {
 			String savePath = this.getServletContext().getRealPath("/upload");
 			String docid = request.getParameter("docid");
@@ -177,7 +209,33 @@ public class DocumentServlet extends HttpServlet {
 		
 		
 	}
-
+	private String getRndColor() {
+		//红色  
+        String red;   
+        //绿色  
+        String green;  
+        //蓝色  
+        String blue;  
+        //生成随机对象  
+        Random random = new Random();    
+        //生成红色颜色代码  
+        red = Integer.toHexString(random.nextInt(256)).toUpperCase();  
+        //生成绿色颜色代码  
+        green = Integer.toHexString(random.nextInt(256)).toUpperCase();   
+        //生成蓝色颜色代码  
+        blue = Integer.toHexString(random.nextInt(256)).toUpperCase();    
+             
+        //判断红色代码的位数  
+        red = red.length()==1 ? "0" + red : red ;    
+        //判断绿色代码的位数  
+        green = green.length()==1 ? "0" + green : green ;   
+        //判断蓝色代码的位数  
+        blue = blue.length()==1 ? "0" + blue : blue ;  
+        //生成十六进制颜色值  
+        String color = "#"+red+green+blue;  
+          
+        return color;  
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
