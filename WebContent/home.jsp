@@ -29,7 +29,7 @@
               <h3 class="masthead-brand">
               CCNG
               </h3>            
-
+ 			
 	<!-- 
 	<a href="home.jsp">主页 </a>
 	<a href="DocumentServlet?function=showMyFile">我的文件</a>
@@ -41,27 +41,26 @@
 	姓名：${account.name}<br/>
 	邮箱：${account.email}<br/>
 	</p>
-<<<<<<< HEAD
+
 	
-=======
+
 	-->
 	<!--  
->>>>>>> origin/master
+
 	<p>
 	<h3>邀请信息：</h3>
 	
 	<%
+		
 		/*
-		InvitationDao idao = new InvitationDao();
 		Account acc = (Account)session.getAttribute("account");
-<<<<<<< HEAD
+		InvitationDao idao = new InvitationDao();
 		String accid = acc.getAccountID();
 		ArrayList<Invitation> recvList = idao.getInvitationofReceiver(accid);
 		ArrayList<Invitation> sendList = idao.getInvitationofSender(accid);
 		request.setAttribute("recvList", recvList);
 		request.setAttribute("sendList", sendList);
-		*/
-=======
+
 		if (acc != null){
 			String accid = acc.getAccountID();
 			ArrayList<Invitation> recvList = idao.getInvitationofReceiver(accid);
@@ -69,7 +68,8 @@
 			request.setAttribute("recvList", recvList);
 			request.setAttribute("sendList", sendList);
 		}
->>>>>>> origin/master
+		*/
+
 	%>
 	<h4>收到的邀请：</h4>
 		<table>		
@@ -113,22 +113,23 @@
 				</tr>
 			</tbody>
 		</c:forEach>
-<<<<<<< HEAD
+
 	</table>
 	-->
 	
-=======
-	</table> -->
+
+	</table>
+	
 	<nav>
                 <ul class="nav masthead-nav">
->>>>>>> origin/master
+
 
                   <li class="active"><a href="#">首页</a></li>
                   <li><a href="DocumentServlet?function=showMyFile">我的文件</a></li>
                   <li><a href="DocumentServlet?function=teamFile">协作文件</a></li>
                 </ul>
-              </nav>
-            </div>
+    </nav>
+        </div>
           </div>
         <section id="dbs">
           <div class="inner cover">

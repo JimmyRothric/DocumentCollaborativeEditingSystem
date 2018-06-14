@@ -53,7 +53,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 		                <h4 class="modal-title">上传文件</h4>
 		            </div>
 		            
-		            <form id="update_form" action="UploadHandleServlet" enctype="multipart/form-data" method="post">
+		            <form id="update_form" action="UploadHandleServlet?function=update&docid=${doc.documentID}" enctype="multipart/form-data" method="post">
 		           
 					<!-- body -->
 		            <div class="modal-body">
@@ -68,7 +68,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 					<!-- /body -->
 					
 		            <div class="modal-footer">
-		                <button type="button" class="btn btn-primary" onclick="update();">提交</button>
+		                <button type="submit" class="btn btn-primary" >提交</button>
 		            </div>
 		            </form>
 		            
