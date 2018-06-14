@@ -59,22 +59,15 @@
 		
 		/*
 		Account acc = (Account)session.getAttribute("account");
-<<<<<<< HEAD
 		InvitationDao idao = new InvitationDao();
-=======
->>>>>>> origin/master
 		String accid = acc.getAccountID();
 		ArrayList<Invitation> recvList = idao.getInvitationofReceiver(accid);
 		ArrayList<Invitation> sendList = idao.getInvitationofSender(accid);
 		request.setAttribute("recvList", recvList);
 		request.setAttribute("sendList", sendList);
-<<<<<<< HEAD
 
-=======
-		*/
 		InvitationDao idao = new InvitationDao();
 		Account acc = (Account)session.getAttribute("account");
->>>>>>> origin/master
 		if (acc != null){
 			String accid = acc.getAccountID();
 			ArrayList<Invitation> recvList = idao.getInvitationofReceiver(accid);
@@ -82,10 +75,7 @@
 			request.setAttribute("recvList", recvList);
 			request.setAttribute("sendList", sendList);
 		}
-<<<<<<< HEAD
 		*/
-=======
->>>>>>> origin/master
 
 	%>
 	<h4>收到的邀请：</h4>
@@ -135,17 +125,14 @@
 
 	
 
-<<<<<<< HEAD
 	</table>
 	
 	<nav>
                 <ul class="nav masthead-nav">
 
-=======
 	</table> -->
 	<nav>
                 <ul class="nav masthead-nav">
->>>>>>> origin/master
 
                   <li class="active"><a href="#">首页</a></li>
                   <li><a href="DocumentServlet?function=showMyFile">我的文件</a></li>
