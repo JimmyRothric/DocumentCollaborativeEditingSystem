@@ -192,6 +192,7 @@ public class UploadHandleServlet extends HttpServlet {
                     }
                     if (function != null && function.equals("upload")) {
                     	if (docid != null) {
+                    		System.out.println("upload");
                     		ContributionDao cdao = new ContributionDao();
                     		cdao.addContribution(new Contribution(docid,acc.getAccountID(),storePath,Contribution.STATE_WAITED));
                     		message = "文档上传成功！";

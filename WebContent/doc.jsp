@@ -34,9 +34,18 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 		<div class="tab-pane fade in active" id="doc">
 			<div class="row" style="float: right; padding-right: 3%">
 				<input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?docid=${doc.documentID}'">
+				
+				<c:if test="${authority eq 'P'}">
 				<button type="submit" style="margin-top: 15px" class="btn btn-default" data-toggle="modal" onclick="$('#update').modal('show');">  
 					 更新文件
 				</button>
+				</c:if>
+				
+				<c:if test="${authority eq 'E'}">
+				<button type="submit" style="margin-top: 15px" class="btn btn-default" data-toggle="modal" onclick="$('#upload').modal('show');">  
+					 上传文件
+				</button>
+				</c:if>
 				<!-- 
 					<input type="button" style="margin-top: 15px" class="btn btn-default" value="更新文件" onclick="window.location.href='upload.jsp?function=update&docid=${doc.documentID}'">
 				 -->
@@ -59,11 +68,42 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 
 					<!-- body -->
 		            <div class="modal-body">
-			            <input id="update_file" name="file" type="file" >
+			            <input id="update_file" name="file" type="file" style="display:none">
 						<div class="input-group form-group">
 						   	<input id="update_path" class="form-control content" type="text">
 						   	<span class="input-group-btn">
 								<button type="button" class="btn btn-default" onclick="$('input[id=update_file]').click();">Browse</button>
+							</span>
+						</div>
+					</div>
+					<!-- /body -->
+					
+		            <div class="modal-footer">
+		                <button type="submit" class="btn btn-primary" >提交</button>
+		            </div>
+		            </form>
+		            
+		        </div>
+		    </div>
+		    </div><!-- /modal -->
+		    
+		    <!-- modal -->
+			<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title">上传文件</h4>
+		            </div>
+		            <form id="upload_form" action="UploadHandleServlet?function=upload&docid=${doc.documentID}" enctype="multipart/form-data" method="post">
+
+					<!-- body -->
+		            <div class="modal-body">
+			            <input id="upload_file" name="file" type="file" style="display:none">
+						<div class="input-group form-group">
+						   	<input id="upload_path" class="form-control content" type="text">
+						   	<span class="input-group-btn">
+								<button type="button" class="btn btn-default" onclick="$('input[id=upload_file]').click();">Browse</button>
 							</span>
 						</div>
 					</div>
@@ -214,14 +254,11 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 	$('input[id=update_file]').change(function() {
 		$('#update_path').val($(this).val().substring(12));
 	});
-	function update() {
-		var docid = ${doc.documentID}; 
-		var url = "UploadHandleServlet?function=update&docid=" + docid.toString();
-	
-		document.getElementById("update_form").action = url;
-		console.log(url);
-		document.getElementById("update_form").submit(); 
-	}
+
+	$('input[id=upload_file]').change(function() {
+		$('#upload_path').val($(this).val().substring(12));
+	});
+
 </script>
 
 </body>
