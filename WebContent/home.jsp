@@ -27,7 +27,7 @@
           <div class="masthead clearfix">
             <div class="inner">
               <h3 class="masthead-brand">
-              CCNG
+              DCES
               </h3>            
  			
 	<!-- 
@@ -41,12 +41,17 @@
 	姓名：${account.name}<br/>
 	邮箱：${account.email}<br/>
 	</p>
+<<<<<<< HEAD
 
 	
 
 	-->
 	<!--  
 
+=======
+	-->
+	<!--  
+>>>>>>> origin/master
 	<p>
 	<h3>邀请信息：</h3>
 	
@@ -54,13 +59,22 @@
 		
 		/*
 		Account acc = (Account)session.getAttribute("account");
+<<<<<<< HEAD
 		InvitationDao idao = new InvitationDao();
+=======
+>>>>>>> origin/master
 		String accid = acc.getAccountID();
 		ArrayList<Invitation> recvList = idao.getInvitationofReceiver(accid);
 		ArrayList<Invitation> sendList = idao.getInvitationofSender(accid);
 		request.setAttribute("recvList", recvList);
 		request.setAttribute("sendList", sendList);
+<<<<<<< HEAD
 
+=======
+		*/
+		InvitationDao idao = new InvitationDao();
+		Account acc = (Account)session.getAttribute("account");
+>>>>>>> origin/master
 		if (acc != null){
 			String accid = acc.getAccountID();
 			ArrayList<Invitation> recvList = idao.getInvitationofReceiver(accid);
@@ -68,7 +82,10 @@
 			request.setAttribute("recvList", recvList);
 			request.setAttribute("sendList", sendList);
 		}
+<<<<<<< HEAD
 		*/
+=======
+>>>>>>> origin/master
 
 	%>
 	<h4>收到的邀请：</h4>
@@ -115,14 +132,20 @@
 		</c:forEach>
 
 	</table>
-	-->
+
 	
 
+<<<<<<< HEAD
 	</table>
 	
 	<nav>
                 <ul class="nav masthead-nav">
 
+=======
+	</table> -->
+	<nav>
+                <ul class="nav masthead-nav">
+>>>>>>> origin/master
 
                   <li class="active"><a href="#">首页</a></li>
                   <li><a href="DocumentServlet?function=showMyFile">我的文件</a></li>
@@ -133,7 +156,7 @@
           </div>
         <section id="dbs">
           <div class="inner cover">
-            <h1 class="cover-heading">XX文档，你的云端Office</h1>
+            <h1 class="cover-heading">DCES，你的云端Office</h1>
             <p class="lead">实时协作、轻松分享<br>查看历史、不怕丢失<br>共享文件、权限管理<br>
               现在开始你的协作办公之旅吧！
             </p>

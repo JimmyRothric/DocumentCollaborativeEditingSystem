@@ -149,5 +149,26 @@ public class InvitationDao extends BaseDao {
 		}
 		return invitationList;
 	}
+	
+	public int getCountInvitationofReceiver(String receiverid) {
+		String sql = "select count(*) from Invitation where Receiver_id = ?";
+		int cnt = 0;
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, receiverid);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+			stmt.close();
+			con.close();
+			return cnt;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 }

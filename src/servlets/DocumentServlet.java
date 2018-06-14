@@ -20,6 +20,7 @@ import entity.Account;
 import entity.Contribution;
 import entity.Contributor;
 import entity.Document;
+import handler.CompareListUtils;
 import handler.FileHandle;
 
 /**
@@ -149,21 +150,27 @@ public class DocumentServlet extends HttpServlet {
 			return;
 		}
 		if (function.equals("showRecord")) {
+			String savePath = this.getServletContext().getRealPath("/upload");
 			String docid = request.getParameter("docid");
 			DocumentDao ddao = new DocumentDao();
 			Document dnow = ddao.getDocumentByID(docid);
 			ArrayList<Document> doldList = ddao.getALLDocumentHistory(docid);
-			ArrayList<ArrayList<Integer>> difAllList = new ArrayList<ArrayList<Integer>>();
+			//ArrayList<ArrayList<Integer>> difAllList = new ArrayList<ArrayList<Integer>>();
+		
 			ArrayList<String> filePathList = new ArrayList<String>();
+			ArrayList<String> diffPathList = new ArrayList<String>();
 			Document dtmp = dnow;
 			filePathList.add(dtmp.getPath().substring(dtmp.getPath().lastIndexOf("\\upload")+1));
 			for (Document d : doldList) {
 				filePathList.add(d.getPath().substring(d.getPath().lastIndexOf("\\upload")+1));
-				difAllList.add(FileHandle.compare(dtmp.getPath(), d.getPath()));
+				//difAllList.add(FileHandle.compare(dtmp.getPath(), d.getPath()));
+				String tpath = CompareListUtils.compare(savePath, dtmp.getPath(), d.getPath());
+				diffPathList.add(tpath.substring(tpath.lastIndexOf("\\upload")+1));
 				dtmp = d;
 			}
+			request.setAttribute("diffPathList", diffPathList);
 			request.setAttribute("filePathList", filePathList);
-			request.setAttribute("difAllList", difAllList);
+			//request.setAttribute("difAllList", difAllList);
 			request.getRequestDispatcher("/filerecord.jsp").forward(request, response);
 			return;
 		}

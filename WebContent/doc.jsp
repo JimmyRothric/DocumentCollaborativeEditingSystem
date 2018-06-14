@@ -53,11 +53,15 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 		                <h4 class="modal-title">上传文件</h4>
 		            </div>
 		            
+<<<<<<< HEAD
 		            <form id="update_form" action="UploadHandleServlet?function=update&docid=${doc.documentID}" enctype="multipart/form-data" method="post">
+=======
+		            <form id="update_form" enctype="multipart/form-data" method="post">
+>>>>>>> origin/master
 		           
 					<!-- body -->
 		            <div class="modal-body">
-			            <input id="update_file" name="file" type="file" style="display: none">
+			            <input id="update_file" name="file" type="file" >
 						<div class="input-group form-group">
 						   	<input id="update_path" class="form-control content" type="text">
 						   	<span class="input-group-btn">
@@ -212,10 +216,12 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 	$('input[id=update_file]').change(function() {
 		$('#update_path').val($(this).val().substring(12));
 	});
-
 	function update() {
-		var url = "UploadHandleServlet?function=update&docid=" + ${doc.documentID};
+		var docid = ${doc.documentID}; 
+		var url = "UploadHandleServlet?function=update&docid=" + docid.toString();
+	
 		document.getElementById("update_form").action = url;
+		console.log(url);
 		document.getElementById("update_form").submit(); 
 	}
 </script>

@@ -62,7 +62,7 @@ public class InvitationServlet extends HttpServlet {
 					}
 					InvitationDao idao = new InvitationDao();
 					idao.delInvitation(document_id, receiver_id);
-					response.sendRedirect("home.jsp");
+					response.sendRedirect("notifications.jsp");
 					return;
 				}
 
