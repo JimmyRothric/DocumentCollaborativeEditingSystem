@@ -149,7 +149,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 							<td><p style="margin-top: 20px">${ctb.accountID}</p></td>
 							<td><p style="margin-top: 20px">${ctb.uploadDate.toLocaleString()}</p></td>
 							<td><p style="margin-top: 20px">${ctb.getStateStr()}</p></td>
-							<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?ctbid=${ctb.contributionID}''"></td>
+							<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?ctbid=${ctb.contributionID}'"></td>
 							<td><input type="button" style="margin-top: 15px" class="btn btn-success" value="Accept" onclick="window.location.href='ContributionServlet?function=pass&ctbid=${ctb.contributionID}'"></td>
 							<td><input type="button" style="margin-top: 15px" class="btn btn-danger" value="Reject" onclick="window.location.href='ContributionServlet?function=notpass&ctbid=${ctb.contributionID}'"></td>
 						</tr>
@@ -162,7 +162,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 							<td><p style="margin-top: 20px">${ctb.accountID}</p></td>
 							<td><p style="margin-top: 20px">${ctb.uploadDate.toLocaleString()}</p></td>
 							<td><p style="margin-top: 20px">${ctb.getStateStr()}</p></td>
-							<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?ctbid=${ctb.contributionID}''"></td>
+							<td><input type="button" style="margin-top: 15px" class="btn btn-default" value="下载文件" onclick="window.location.href='DownloadHandleServlet?ctbid=${ctb.contributionID}'"></td>
 							<td><button style="visibility: hidden"></button></td>
 							<td><button style="visibility: hidden"></button></td>
 						</tr>

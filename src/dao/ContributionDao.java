@@ -181,7 +181,7 @@ public class ContributionDao extends BaseDao {
 	
 	public ArrayList<Contribution> getContributionByAIDDID(String accid,String docid) {
 		ArrayList<Contribution> contributionList = new ArrayList<Contribution>();
-		String sql = "select * from Contribution where Uid = ? and Did = ?";
+		String sql = "select * from Contribution where Uid = ? and Did = ? and state = 'A'";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);

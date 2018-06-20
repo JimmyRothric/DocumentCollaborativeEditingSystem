@@ -65,8 +65,9 @@ public class DownloadHandleServlet extends HttpServlet {
 		if (ctbid != null) {
 			ContributionDao cdao = new ContributionDao();
 			Contribution c = cdao.getContributionByCID(ctbid);
-			path = c.getPath();
-			filename = c.getContributionID();
+			String p = c.getPath();
+			path = p;
+			filename = p.substring(p.lastIndexOf("\\")+1);
 			file = new File (path);
 		}
 		/*

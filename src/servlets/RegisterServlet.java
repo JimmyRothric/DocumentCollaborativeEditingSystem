@@ -51,17 +51,17 @@ public class RegisterServlet extends HttpServlet {
 			isExisted = adao.isExisted(id);
 			if (isExisted) {
 				session.setAttribute("register_error", "该用户已存在");
-				response.sendRedirect("register.jsp");
+				response.sendRedirect("home.jsp");
 				return;
 			} else {
 				success = adao.addAccount(new Account(id, password, name, email));
 			}
 			if (success) {
-				response.sendRedirect("login.jsp");
+				response.sendRedirect("home.jsp");
 				return;
 			} else {
 				session.setAttribute("register_error", "注册失败");
-				response.sendRedirect("register.jsp");
+				response.sendRedirect("home.jsp");
 				return;
 			}
 		}

@@ -51,11 +51,11 @@ public class LoginServlet extends HttpServlet {
 				return;
 			}
 			session.setAttribute("login_error", "账号或密码错误");
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("home.jsp");
 			return;
 		}
 		session.setAttribute("login_error", "登陆失败");
-		response.sendRedirect("login.jsp");
+		response.sendRedirect("home.jsp");
 		return;
 	}
 

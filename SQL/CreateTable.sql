@@ -11,7 +11,7 @@ create table Account
 create table Document
 (
 	Did char(20),
-	title nvarchar(50) not null,
+	title nvarchar(100) not null,
 	path nvarchar(200) not null,
 	create_date datetime not null,
 	last_modify_date datetime,
@@ -22,7 +22,7 @@ create table Document
 create table Document_History
 (
 	Did char(20),
-	title nvarchar(50) not null,
+	title nvarchar(100) not null,
 	path nvarchar(200) not null,
 	create_date datetime not null,
 	modify_date datetime not null,

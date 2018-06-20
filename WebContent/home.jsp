@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Account"%>
 <%@page import="dao.InvitationDao"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -18,6 +19,8 @@
     <link href="css/cover.css" rel="stylesheet">
       <script type="text/javascript" src="js/register_isValid.js" charset="UTF-8"></script>
 </head>
+
+
 <body>
 
 <section id = "home">
@@ -137,6 +140,10 @@
                   <li class="active"><a href="#">首页</a></li>
                   <li><a href="DocumentServlet?function=showMyFile">我的文件</a></li>
                   <li><a href="DocumentServlet?function=teamFile">协作文件</a></li>
+                  <c:if test = "${account != null }">
+                  <li><a href ="profile.jsp">我的信息</a></li>
+                  <li><a href ="login.jsp?logout=true">注销</a></li>
+                  </c:if>
                 </ul>
     </nav>
         </div>
@@ -147,6 +154,7 @@
             <p class="lead">实时协作、轻松分享<br>查看历史、不怕丢失<br>共享文件、权限管理<br>
               现在开始你的协作办公之旅吧！
             </p>
+            <c:if test = "${account == null}">
             <p class="lead">
               <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#login">
                           登录
@@ -156,6 +164,7 @@
               </button>
               
             </p>
+            </c:if>
           </div>
         </section>
         </div>
