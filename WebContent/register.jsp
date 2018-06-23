@@ -57,7 +57,7 @@
 </div>
 </div>
 
-<script src="js/register_isValid.js"></script>
+<script src="js/checkValidate.js.js"></script>
 
 </form>
 </body>

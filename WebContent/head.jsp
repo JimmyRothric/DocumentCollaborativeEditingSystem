@@ -4,8 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
-<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/ajax_notification.js"></script>
 <!-- 导航栏 -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #000000;"> 
 <div class="container-fluid"> 
@@ -40,13 +41,15 @@
 	<c:if test = "${account.accountID ne null}">
 		<!--<a href="notifications.jsp">-->
 		<button type="button" class="btn btn-link btn-sm" style="background-color: #000000; text-decoration: none" onclick="window.location.href='notifications.jsp'">
-			<span class="glyphicon glyphicon-bell" style="color: #aaaaaa"></span>
-			<span class="badge" style="background-color: #aaaaaa">
+			<span class="glyphicon glyphicon-bell" id="notification_icon" style="color: #aaaaaa"></span>
+			<span class="badge" style="background-color: #aaaaaa" id="notification_cnt">
 			<%
+				/*
 				InvitationDao idao = new InvitationDao();
 				Account acc = (Account)session.getAttribute("account");
 				int cnt = idao.getCountInvitationofReceiver(acc.getAccountID());
 				out.print(cnt);
+				*/
 			%>
 			</span>
         </button> 

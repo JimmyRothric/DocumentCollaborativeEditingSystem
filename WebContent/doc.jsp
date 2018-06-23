@@ -11,6 +11,7 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 </head>
 <body>
 <%@ include file="head.jsp" %>
+<script type="text/javascript" src="doc.js"></script>
 <div style="margin-top: 5%; margin-left: 5%; margin-right: 5%;">
 <div class="container-fluid">
 
@@ -202,7 +203,9 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 						<tr align="center">
 							<td><p style="margin-top: 20px">${contributor.accountID}</p></td>
 							<td><p style="margin-top: 20px">${contributor.getAuthorityStr()}</p></td>
-							<td><input type="button" style="margin-top: 15px" id="changeAuthority" class="btn btn-warning" value="修改权限" onclick="window.location.href='ContributorServlet?function=change&accid=${contributor.accountID}&docid=${contributor.documentID}'"></td>
+							<!-- 
+								<td><input type="button" style="margin-top: 15px" id="changeAuthority" class="btn btn-warning" value="修改权限" onclick="window.location.href='ContributorServlet?function=change&accid=${contributor.accountID}&docid=${contributor.documentID}'"></td>
+							-->
 							<td><input type="button" style="margin-top: 15px" class="btn btn-danger" value="删除" onclick="window.location.href='ContributorServlet?function=del&accid=${contributor.accountID}&docid=${contributor.documentID}'"></td>
 						</tr>
 					</tbody>
@@ -251,13 +254,13 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 </div>
 
 <script>
-	$('input[id=update_file]').change(function() {
-		$('#update_path').val($(this).val().substring(12));
-	});
+$('input[id=update_file]').change(function() {
+	$('#update_path').val($(this).val().substring(12));
+});
 
-	$('input[id=upload_file]').change(function() {
-		$('#upload_path').val($(this).val().substring(12));
-	});
+$('input[id=upload_file]').change(function() {
+	$('#upload_path').val($(this).val().substring(12));
+});
 
 </script>
 

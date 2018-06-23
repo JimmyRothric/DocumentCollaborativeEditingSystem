@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function() {
+﻿$(document).ready(function() {
     $('#login').bootstrapValidator({
       //排除无需验证的控件，比如被禁用的或者被隐藏的  
         //submitButtons: '#btn-test',//指定提交按钮，如果验证失败则变成disabled，但我没试成功，反而加了这句话非submit按钮也会提交到action指定页面  
@@ -100,4 +98,4 @@ $(document).ready(function() {
        
     });  
     
-    
+ 

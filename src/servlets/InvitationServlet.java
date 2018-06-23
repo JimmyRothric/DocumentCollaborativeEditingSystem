@@ -1,12 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import dao.ContributorDao;
 import dao.InvitationDao;
@@ -48,8 +52,10 @@ public class InvitationServlet extends HttpServlet {
 		Account acc = (Account) session.getAttribute("account");
 		String invBtn = request.getParameter("invBtn");
 		String function = request.getParameter("function");
+		String func = request.getParameter("func");
 		
 		try {
+		
 			if (function != null) {
 				String sender_id = request.getParameter("sender_id");
 				String receiver_id = request.getParameter("receiver_id");
@@ -67,19 +73,55 @@ public class InvitationServlet extends HttpServlet {
 				}
 
 				throw new Exception("参数错误或其他错误");
+			} 
+			
+			/**
+			 * AJAX 
+			 * 1. return the number of notification
+			 * 2. get all invitation of receiver
+			 * 3. get all invitation of sender
+			 */
+			if (func != null) {
+				InvitationDao idao = new InvitationDao();	
+				String accid = acc.getAccountID();
+				Gson gson = new Gson();
+				String jsonMsg = null;
+				if (func.equals("countNotification")) {
+					int cnt = idao.getCountInvitationofReceiver(acc.getAccountID());
+					response.getWriter().print(cnt);
+				}
+				if (func.equals("getInvitationofReceiver")) {
+					ArrayList<Invitation> recvList = idao.getInvitationofReceiver(accid);
+					jsonMsg = gson.toJson(recvList);
+					
+					System.out.println("getInvitationofReceiver" + jsonMsg);
+					response.getWriter().print(jsonMsg);
+				
+				}
+				if (func.equals("getInvitationofSender")) {
+					ArrayList<Invitation> sendList = idao.getInvitationofSender(accid);
+					jsonMsg = gson.toJson(sendList);
+					System.out.println("getInvitationofSender" + jsonMsg);
+					response.getWriter().print(jsonMsg);
+				}
 			}
+			
 			if (invBtn != null) {
 				String recv_id = request.getParameter("recv_id");
 				String doc_id = request.getParameter("doc_id");
+				System.out.println("enter0");
+				
 				if (recv_id != null && doc_id != null && acc != null) {
 					InvitationDao idao = new InvitationDao();
 					if (idao.isExisted(doc_id, recv_id)) {
-						request.setAttribute("loc","ContributorServlet?function=show&docid="+doc_id);
+						//request.setAttribute("loc","ContributorServlet?function=show&docid="+doc_id);
+						request.setAttribute("loc","DocumentServlet?function=showdoc&docid="+doc_id);
 						request.setAttribute("message","已邀请该用户");
 					    request.getRequestDispatcher("/message.jsp").forward(request, response);
 					    return;
 					}else if (idao.addInvitation(new Invitation(doc_id,acc.getAccountID(),recv_id))) {
-						request.setAttribute("loc","ContributorServlet?function=show&docid="+doc_id);
+						//request.setAttribute("loc","ContributorServlet?function=show&docid="+doc_id);
+						request.setAttribute("loc","DocumentServlet?function=showdoc&docid="+doc_id);
 						request.setAttribute("message","邀请成功");
 					    request.getRequestDispatcher("/message.jsp").forward(request, response);
 					    return;

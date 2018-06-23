@@ -100,12 +100,15 @@ public class DocumentServlet extends HttpServlet {
 			ArrayList<Document> docList = ddao.getPossessedDocumentByAID(accid);
 			request.setAttribute("docList", docList);
 			
+			//redundant code
 			ContributionDao cdao = new ContributionDao();
 			ArrayList<ArrayList<Contribution>> ctbList = new ArrayList<ArrayList<Contribution>>();
 			for (Document d :docList) {
 				ctbList.add(cdao.getALLContributionByDID(d.getDocumentID()));
 			}
 			request.setAttribute("ctbList", ctbList);
+			//
+			
 			request.getRequestDispatcher("/myfile.jsp").forward(request, response);
 			return;
 		}

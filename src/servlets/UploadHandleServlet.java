@@ -203,11 +203,13 @@ public class UploadHandleServlet extends HttpServlet {
             }
         }catch (FileUploadBase.FileSizeLimitExceededException e) {
             e.printStackTrace();
+            request.setAttribute("loc","profile.jsp");
             request.setAttribute("message", "单个文件超出最大值！！！");
             request.getRequestDispatcher("/message.jsp").forward(request, response);
             return;
         }catch (FileUploadBase.SizeLimitExceededException e) {
             e.printStackTrace();
+            request.setAttribute("loc","profile.jsp");
             request.setAttribute("message", "上传文件的总的大小超出限制的最大值！！！");
             request.getRequestDispatcher("/message.jsp").forward(request, response);
             return;

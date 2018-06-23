@@ -7,6 +7,7 @@
 <title>profile</title>
 </head>
 <body>
+<script src="js/checkValidate.js"></script>
 <%@ include file="head.jsp" %>
 <div style="margin-top: 5%; margin-left: 5%; margin-right: 5%;">
 <div class="container-fluid">
@@ -15,6 +16,19 @@
 		账号：${account.accountID}<br/>
 		姓名：${account.name}<br/>
 		邮箱：${account.email}<br/>
+		<br/>
+		重置密码：<br/>
+		<div class="col-md-4">
+			<form action="MyInfoServlet?function=updatePassword" method="post" onsubmit="return isValidPassword();"> 
+				<input type="password" class="form-control col-md-4" id="password0" name="password0" placeholder="请输入旧密码" style="margin-top: 3%" required autofocus/><br/>
+				<input type="password" class="form-control col-md-4" id="password1" name="password1" placeholder="请输入新密码" style="margin-top: 3%" required autofocus/><br/>
+				<input type="password" class="form-control col-md-4" id="password2" name="password2" placeholder="请确认密码" style="margin-top: 3%" required autofocus/><br/>
+				<input type="submit" class="btn btn-primary col-md-12" style="margin-top: 3%" value="修改 "/>
+			</form>
+		</div>
+		
+		
+		
 	</p>
 </div>
 </div>
