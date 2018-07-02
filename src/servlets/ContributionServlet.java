@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import dao.ContributionDao;
 import entity.Contribution;
@@ -39,27 +41,32 @@ public class ContributionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
 		String function = request.getParameter("function");
 		String ctbid = request.getParameter("ctbid");
 		if (function != null && ctbid != null) {
 			if (function.equals("pass")) {
 				ContributionDao cdao = new ContributionDao();
 				cdao.changeState(ctbid, Contribution.STATE_ACCEPT);
-				response.sendRedirect("DocumentServlet?function=showMyFile");
-				return;
+				
+//				response.sendRedirect("DocumentServlet?function=showMyFile");
+//				return;
 			}
 			if (function.equals("notpass")) {
 				ContributionDao cdao = new ContributionDao();
 				cdao.changeState(ctbid, Contribution.STATE_REJECT);
-				response.sendRedirect("DocumentServlet?function=showMyFile");
-				return;
+//				response.sendRedirect("DocumentServlet?function=showMyFile");
+//				return;
 			}
 			if (function.equals("cancel")) {
 				ContributionDao cdao = new ContributionDao();
 				cdao.delContribution(ctbid);
-				response.sendRedirect("DocumentServlet?function=teamFile");
-				return;
+//				response.sendRedirect("DocumentServlet?function=teamFile");
+//				return;
 			}
+			session.setAttribute("page", "commit");
+			response.sendRedirect("DocumentServlet?function=showdoc");
+			return;
 		}
 	}
 

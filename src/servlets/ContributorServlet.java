@@ -45,6 +45,8 @@ public class ContributorServlet extends HttpServlet {
 		String accid = request.getParameter("accid");
 		String docid = request.getParameter("docid");
 		if (function != null ) {
+			
+			//redundant code
 			if (function.equals("show")) {
 				if (docid != null) {
 					ContributorDao cdao = new ContributorDao();
@@ -54,6 +56,8 @@ public class ContributorServlet extends HttpServlet {
 				    return;
 				}
 			}
+			//
+			
 			if (function.equals("change")) {
 				//TODO
 				return;
@@ -69,9 +73,9 @@ public class ContributorServlet extends HttpServlet {
 			}
 		}
 		
-		 request.setAttribute("message","出错");
-	     request.getRequestDispatcher("/message.jsp").forward(request, response);
-	     return;
+		request.setAttribute("message","出错");
+		request.getRequestDispatcher("/message.jsp").forward(request, response);
+		return;
 	}
 
 }

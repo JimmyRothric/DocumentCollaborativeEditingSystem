@@ -1,5 +1,5 @@
 /**
- * doc.jsp
+ * doc.js
  * file
  */
 
@@ -13,9 +13,9 @@ $('input[id=upload_file]').change(function() {
 
 
 /**
- * 
+ * return previous page
  */
-var page = '${requestScope.page}';
+var page = '${sessionScope.page}';
 console.log(page);
 $(document).ready(function() {
     if (location.hash) {

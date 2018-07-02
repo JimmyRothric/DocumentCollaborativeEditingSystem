@@ -83,11 +83,13 @@ public class DownloadHandleServlet extends HttpServlet {
         //如果文件不存在
 		if (file == null) {
             request.setAttribute("message", "错误");
+            request.setAttribute("loc", "DocumentServlet?function=showdoc&docid=" + docid);
             request.getRequestDispatcher("/message.jsp").forward(request, response);
             return;
 		}
         if(!file.exists()){
             request.setAttribute("message", "您要下载的资源不存在！！");
+            request.setAttribute("loc", "DocumentServlet?function=showdoc&docid=" + docid);
             request.getRequestDispatcher("/message.jsp").forward(request, response);
             return;
         }
