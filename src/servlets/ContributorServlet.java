@@ -68,7 +68,8 @@ public class ContributorServlet extends HttpServlet {
 				ArrayList<Contributor> ctbtrList = cdao.getContributorsByDID(docid);
 				request.setAttribute("ctbtrList", ctbtrList);
 				//request.getRequestDispatcher("/editormanage.jsp").forward(request, response);
-				request.getRequestDispatcher("/doc.jsp").forward(request, response);
+				//request.getRequestDispatcher("/doc.jsp").forward(request, response);
+				request.getRequestDispatcher("/DocumentServlet?function=showdoc&docid="+docid).forward(request, response);
 			    return;
 			}
 		}

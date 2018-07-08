@@ -45,6 +45,8 @@ public class ContributionServlet extends HttpServlet {
 		String function = request.getParameter("function");
 		String ctbid = request.getParameter("ctbid");
 		if (function != null && ctbid != null) {
+			ContributionDao cdao2 = new ContributionDao();
+			String docid = cdao2.getContributionByCID(ctbid).getDocumentID();
 			if (function.equals("pass")) {
 				ContributionDao cdao = new ContributionDao();
 				cdao.changeState(ctbid, Contribution.STATE_ACCEPT);
@@ -65,7 +67,7 @@ public class ContributionServlet extends HttpServlet {
 //				return;
 			}
 			session.setAttribute("page", "commit");
-			response.sendRedirect("DocumentServlet?function=showdoc");
+			response.sendRedirect("DocumentServlet?function=showdoc&docid="+docid);
 			return;
 		}
 	}

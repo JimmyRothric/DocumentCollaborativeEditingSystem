@@ -151,7 +151,8 @@ public class DocumentServlet extends HttpServlet {
 			newd.setLastModifyDate(Calendar.getInstance().getTime());
 			newd.setVersion(oldd.getVersion()+1);
 			ddao.updateDocument(oldd, newd);
-			response.sendRedirect("DocumentServlet?function=showMyFile");
+			//response.sendRedirect("DocumentServlet?function=showMyFile");
+			response.sendRedirect("DocumentServlet?function=showdoc&docid=" + hdocid);
 			return;
 		}
 		if (function.equals("showContribution")) {

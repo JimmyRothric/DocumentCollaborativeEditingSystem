@@ -142,7 +142,7 @@
                   <li><a href="DocumentServlet?function=teamFile">协作文件</a></li>
                   <c:if test = "${account != null }">
                   <li><a href ="profile.jsp">我的信息</a></li>
-                  <li><a href ="login.jsp?logout=true">注销</a></li>
+                  <li><a href ="LoginServlet?logout=true">注销</a></li>
                   </c:if>
                 </ul>
     </nav>

@@ -60,7 +60,7 @@
 			<button type="button" class="btn btn-default btn-sm" onclick="window.location.href='profile.jsp'">
 		  		<span class="glyphicon glyphicon-user"></span> ${account.name}
 			</button>
-			<button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='login.jsp?logout=true'">
+			<button type="button" class="btn btn-primary btn-sm" onclick="window.location.href='LoginServlet?logout=true'">
 				注销
 			</button>
 		</div>

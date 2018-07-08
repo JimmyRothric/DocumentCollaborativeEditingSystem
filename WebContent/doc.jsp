@@ -159,7 +159,8 @@ body {margin-left: 0px;margin-top: 0px;margin-right: 0px;margin-bottom: 0px;over
 						</tr>
 					</tbody>
 				</c:if>
-				<c:if test="${ctb.state eq 'A' or authority eq 'E'}">
+				<!--  c:if test="${ctb.state eq 'A' or authority eq 'E'}">-->
+				<c:if test="${ctb.state eq 'A'}">
 					<tbody>
 						<tr align="center">
 							<td><p style="margin-top: 20px">${ctb.contributionID}</p></td>

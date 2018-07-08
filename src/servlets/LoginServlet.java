@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	/**
@@ -40,8 +42,17 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println("123456");
 		HttpSession session = request.getSession();
+		String logout = request.getParameter("logout");
+		if (logout != null && logout.equals("true")){
+			//session.removeAttribute("account");
+			Enumeration<String> e = session.getAttributeNames();
+			while (e.hasMoreElements()){
+				session.removeAttribute(e.nextElement());
+			}
+			response.sendRedirect("home.jsp");
+			return;
+		}
 		if (username != null && password != null) {
 			AccountDao adao = new AccountDao();
 			Account acc = adao.isValid(username, password);
@@ -58,5 +69,6 @@ public class LoginServlet extends HttpServlet {
 		response.sendRedirect("home.jsp");
 		return;
 	}
+
 
 }
